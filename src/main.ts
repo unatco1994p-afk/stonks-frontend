@@ -1,6 +1,24 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import { provideHttpClient } from '@angular/common/http';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+async function loadRuntimeConfig() {
+  try {
+    const res = await fetch('/assets/config.json');
+    if (!res.ok) throw new Error('no config');
+    return await res.json();
+  } catch (err) {
+    // fallback
+    return { backendUrl: 'http://localhost:8080' };
+  }
+}
+
+(async () => {
+  const runtimeConfig = await loadRuntimeConfig();
+  // zapis na window, dostępne globalnie
+  (window as any).__env = runtimeConfig;
+
+  bootstrapApplication(AppComponent, {
+    providers: [provideHttpClient()]
+  }).catch(err => console.error(err));
+})();
