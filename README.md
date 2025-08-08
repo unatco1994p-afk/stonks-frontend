@@ -57,3 +57,10 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## Build using docker
+docker build -t stonks-frontend .
+
+## Run docker
+docker run --rm -p 8081:80 -e BACKEND_URL=localhost:8080 stonks-frontend
