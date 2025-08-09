@@ -22,6 +22,6 @@ export class ApiService {
   }
 
   addLog(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/log`, data);
+    return this.http.post(`${this.baseUrl}/logs`, data);
   }
 }
