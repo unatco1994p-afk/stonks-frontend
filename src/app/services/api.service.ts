@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 
 declare global {
   interface Window { __env?: { backendUrl?: string } }
@@ -11,7 +10,7 @@ declare global {
   providedIn: 'root'
 })
 export class ApiService {
-  private get baseUrl(): string {
+  public get baseUrl(): string {
     return window.__env?.backendUrl || 'http://localhost:8080';
   }
 
@@ -22,6 +21,6 @@ export class ApiService {
   }
 
   addLog(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/log`, data);
+    return this.http.post(`${this.baseUrl}/logs`, data);
   }
 }
