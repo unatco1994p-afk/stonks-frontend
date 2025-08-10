@@ -1,6 +1,9 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes';
+import { authInterceptor } from './app/auth/auth.interceptor';
 
 async function loadRuntimeConfig() {
   try {
@@ -19,6 +22,9 @@ async function loadRuntimeConfig() {
   (window as any).__env = runtimeConfig;
 
   bootstrapApplication(AppComponent, {
-    providers: [provideHttpClient()]
+    providers: [provideRouter(routes), provideHttpClient(
+      withInterceptors([authInterceptor])
+    )]
   }).catch(err => console.error(err));
 })();
+
