@@ -1,0 +1,15 @@
+.window {
+  position: absolute;
+}
+
+.window-header {
+  cursor: move;
+  user-select: none;
+  display: flex;
+}
+
+.cross-button {
+  margin-left: auto;
+  padding: 0 3px !important;
+  font-size: 10px;
+}

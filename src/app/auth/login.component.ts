@@ -7,16 +7,7 @@ import { AuthService } from './auth.service';
   standalone: true,
   selector: 'app-login',
   imports: [FormsModule, RouterLink],
-  template: `
-    <h2>Logowanie</h2>
-    <form (ngSubmit)="onLogin()">
-      <input [(ngModel)]="email" name="email" placeholder="Email" required>
-      <input [(ngModel)]="password" name="password" placeholder="Hasło" type="password" required>
-      <button type="submit">Zaloguj</button>
-    </form>
-    <br />
-    <button routerLink="/">Do strony głównej</button>
-  `
+  templateUrl: './login.component.html',
 })
 export class LoginComponent {
   email = '';

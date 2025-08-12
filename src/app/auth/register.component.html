@@ -1,0 +1,21 @@
+<div class="ut99-window">
+  <div class="ut99-title">Authorization</div>
+  
+  <div class="ut99-tabs">
+    <button class="ut99-tab" routerLink="/login">Login</button>
+    <button class="ut99-tab active">Register</button>
+  </div>
+  
+  <div class="ut99-content">
+    <form (ngSubmit)="onRegister()">
+      <input [(ngModel)]="email" name="email" placeholder="Email" required>
+      <input [(ngModel)]="password" name="password" placeholder="Hasło" type="password" required>
+      <button class="ut99-button" type="submit">Zarejestruj</button>
+    </form>
+    <br />
+    <div class="ut99-buttons-row">
+        <button class="ut99-button" routerLink="/">Do strony głównej</button>
+    </div>
+
+  </div>
+</div>

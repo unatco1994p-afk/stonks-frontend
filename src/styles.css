@@ -1,1 +1,125 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background: #2c2f77;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  color: black;
+}
+
+.ut99-window {
+  border: 1px solid #000;
+  background: linear-gradient(#7a8cbf, #5e6b99);
+  width: 600px;
+  margin: 20px auto;
+  padding: 0;
+  box-shadow: 1px 1px 12px 1px #0006;
+  border-radius: 2px;
+  padding-bottom: 2px;
+}
+
+.ut99-title {
+  background: linear-gradient(to bottom,#89a3c4, #c3d3e7 );
+  color: black;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 4px;
+  border-bottom: 1px solid #000;
+  box-shadow: inset 0px -1px 0px 0px #5e6b99;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.ut99-tabs {
+  display: flex;
+  gap: 2px;
+  padding-top: 1px;
+  margin-left: 1px;
+}
+
+.ut99-tab {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  padding: 2px 8px;
+  background: linear-gradient(to bottom, #b8cbe1, #7d8fa8);
+  border: 1px solid #000;
+  border-bottom: none;
+  box-shadow: inset 1px 1px #e8f0fa, inset -1px -1px #5a6c82;
+  cursor: pointer;
+}
+
+.ut99-tab:hover {
+  background: linear-gradient(to bottom, #c9d9ec, #8da2bb);
+}
+
+.ut99-tab.active {
+  background: linear-gradient(to bottom, #b8cbe1, #c9d9ec);
+  border-bottom: none;
+  font-weight: bold;
+  color: black;
+  box-shadow: inset 1px 1px #a0b2cc, inset -1px -1px #2f3d52;
+}
+
+.ut99-content {
+  padding: 10px;
+  background-color: #c9d9ec;
+}
+
+.ut99-select {
+  font-size: 11px;
+  border: 1px solid #808080;
+  background: #fff;
+  margin: 0 5px;
+}
+
+.ut99-checkboxes {
+  margin-top: 10px;
+}
+
+.ut99-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 11px;
+  background: #c0c0c0;
+}
+
+.ut99-table th {
+  background: #7a8cbf;
+  color: white;
+  text-align: left;
+  padding: 3px;
+}
+
+.ut99-table td {
+  border: 1px solid #808080;
+  padding: 2px 4px;
+  background: #e0e0e0;
+}
+
+/* --- Przyciski Win98 / UT99 --- */
+button, .ut99-button {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  padding: 2px 8px;
+  color: black;
+  background: linear-gradient(to bottom, #c3d3e7, #89a3c4);
+  border: 1px solid #000;
+  box-shadow: inset 2px 2px #ffffff, inset -2px -2px #5a6c82;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+button:hover, .ut99-button:hover {
+  background: linear-gradient(to bottom, #d7e4f2, #9bb7d6);
+}
+
+button:active, .ut99-button:active {
+  background: linear-gradient(to bottom, #89a3c4, #c3d3e7);
+  box-shadow: inset -2px -2px #ffffff, inset 2px 2px #5a6c82;
+}
+
+.ut99-buttons-row {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+}

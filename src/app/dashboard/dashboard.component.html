@@ -1,0 +1,28 @@
+<ut-menubar
+    (itemSelected)="menuItemSelected($event)"
+></ut-menubar>
+
+<h2>Panel użytkownika</h2>
+<p>Jesteś zalogowany 🎉</p>
+
+<app-logout-button></app-logout-button>
+
+<h1>Stonks Frontend</h1>
+
+<button (click)="loadLogs()">Load Logs</button>
+<button (click)="addLog()">Add Log</button>
+
+<ul>
+    <li *ngFor="let log of logs">
+        {{ log.id }} -
+        {{ log.createdAt?.seconds * 1000 | date:'short' }} -
+        {{ log.note || '' }}
+    </li>
+</ul>
+
+<button (click)="addWindow()">➕ Dodaj okno</button>
+
+<app-window *ngFor="let w of windows" [x]="w.x" [y]="w.y" [title]="w.title" (closed)="closeWindow(w.id)">
+    <p>Treść okna {{ w.id }}</p>
+    <button (click)="closeWindow(w.id)">Zamknij</button>
+</app-window>

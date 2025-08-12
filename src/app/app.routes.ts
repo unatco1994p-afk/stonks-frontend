@@ -4,9 +4,11 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login.component';
 import { RegisterComponent } from './auth/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ThemeComponent } from './home/theme.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'theme-test', component: ThemeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
