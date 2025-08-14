@@ -1,0 +1,14 @@
+<div class="ut99-window window" [ngStyle]="{'top.px': y, 'left.px': x}">
+  <div class="ut99-title window-header" (mousedown)="onMouseDown($event)">
+    {{ title }}
+    <button class="cross-button" (click)="onClose()">
+      ✖
+    </button>
+  </div>
+  <div class="ut99-tabs">
+    <button class="ut99-tab active">Main</button>
+  </div>
+  <div class="ut99-content window-body">
+    <ng-content></ng-content>
+  </div>
+</div>

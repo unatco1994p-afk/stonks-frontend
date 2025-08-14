@@ -5,10 +5,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   selector: 'app-home',
   imports: [RouterLink],
-  template: `
-    <h1>Witaj w aplikacji</h1>
-    <button routerLink="/login">Zaloguj</button>
-    <button routerLink="/register">Rejestruj</button>
-  `
+  templateUrl: './home.component.html'
 })
 export class HomeComponent {}

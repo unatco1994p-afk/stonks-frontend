@@ -23,4 +23,8 @@ export class ApiService {
   addLog(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/logs`, data);
   }
+
+  getUsers(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/admin-users/users`);
+  }
 }
