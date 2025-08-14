@@ -1,0 +1,15 @@
+<table class="ut99-table">
+    <thead>
+    <tr>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Created At</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    <tr *ngFor="let user of users">
+        <td>{{user.email}}</td><td>{{user.roles}}</td><td>{{user.createdAt._seconds*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+    </tr>
+    </tbody>
+</table>

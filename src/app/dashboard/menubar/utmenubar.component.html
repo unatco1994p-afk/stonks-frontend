@@ -3,15 +3,13 @@
         (mouseenter)="hoverMenu('Administration', $event)">
         Administration
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Administration'">
-            <div class="ut-dropdown-item" (click)="onItem('Users')">Users</div>
-            <div class="ut-dropdown-item" (click)="onItem('Roles')">Roles</div>
-            <div class="ut-dropdown-item" (click)="onItem('Permissions')">Permissions</div>
-            <!-- <div class="ut-dropdown-item disabled">Return to Current Game</div>
-            <div class="ut-dropdown-item" (click)="onItem('Quit')">Quit</div> -->
+            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (click)="onItem('Users')">Users</div>
+            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (click)="onItem('Roles')">Roles</div>
+            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (click)="onItem('Permissions')">Permissions</div>
         </div>
     </div>
 
-    <div class="ut-menu" [class.active]="openMenu === 'Stonks'" (click)="toggleMenu('Stonks', $event)"
+    <div *ngIf="isAdmin" class="ut-menu" [class.active]="openMenu === 'Stonks'" (click)="toggleMenu('Stonks', $event)"
         (mouseenter)="hoverMenu('Stonks', $event)">
         Stonks
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Stonks'">
@@ -24,8 +22,9 @@
         (mouseenter)="hoverMenu('Utility', $event)">
         Utility
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Utility'">
-            <div class="ut-dropdown-item disabled" (click)="onItem('IP Calculator')">IP Calculator</div>
-            <div class="ut-dropdown-item disabled" (click)="onItem('Controls')">Controls</div>
+            <div class="ut-dropdown-item" (click)="onItem('Log Explorer')">Log Explorer</div>
+            <!-- <div class="ut-dropdown-item disabled" (click)="onItem('IP Calculator')">IP Calculator</div>
+            <div class="ut-dropdown-item disabled" (click)="onItem('Controls')">Controls</div> -->
         </div>
     </div>
 
@@ -34,15 +33,14 @@
         Settings
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Settings'">
             <div class="ut-dropdown-item" (click)="onItem('Preferences')">Preferences</div>
-            <!-- <div class="ut-dropdown-item" (click)="onItem('Match History')">Match History</div> -->
         </div>
     </div>
 
     <div class="ut-menu ut-menu-right" [class.active]="openMenu === 'Account'" (click)="toggleMenu('Account', $event)"
         (mouseenter)="hoverMenu('Account', $event)">
-        Account
+        Account: {{email}} ({{role}})
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Account'">
-            <div class="ut-dropdown-item" (click)="onItem('About')">About</div>
+            <div class="ut-dropdown-item disabled" (click)="onItem('About')">About</div>
             <div class="ut-dropdown-item" (click)="onItem('Logout')">Logout</div>
         </div>
     </div>
