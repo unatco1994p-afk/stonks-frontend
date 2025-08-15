@@ -1,0 +1,5 @@
+<label>Content: </label>
+<input type="text" [(ngModel)]="content" placeholder="Enter log content" />
+<button (click)="addLog()" [disabled]="content == ''">
+  Add log
+</button>

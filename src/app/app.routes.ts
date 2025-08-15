@@ -9,7 +9,7 @@ import { ThemeComponent } from './home/theme.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'theme-test', component: ThemeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  // { path: 'login', component: LoginComponent },
+  // { path: 'register', component: RegisterComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
 ];

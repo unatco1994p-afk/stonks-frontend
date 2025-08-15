@@ -1,28 +1,4 @@
-<ut-menubar
-    (itemSelected)="menuItemSelected($event)"
-></ut-menubar>
-
-<!-- <h2>Panel użytkownika</h2>
-<p>Jesteś zalogowany 🎉</p>
-
-<app-logout-button></app-logout-button>
-
-<h1>Stonks Frontend</h1>
-
-<button (click)="loadLogs()">Load Logs</button>
-<button (click)="addLog()">Add Log</button>
-
-<button (click)="getAdminUsers()">Get Admin Users</button>
-
-<ul>
-    <li *ngFor="let log of logs">
-        {{ log.id }} -
-        {{ log.createdAt?.seconds * 1000 | date:'short' }} -
-        {{ log.note || '' }}
-    </li>
-</ul>
-
-<button (click)="addWindow()">➕ Dodaj okno</button> -->
+<ut-menubar (itemSelected)="menuItemSelected($event)"></ut-menubar>
 
 <div class="center">
     <div class="infinity">
@@ -36,9 +12,33 @@
 </app-window>
 
 <app-window *ngIf="usersWindow as win" [x]="win.x" [y]="win.y" [title]="win.title" (closed)="closeUsersWindow()">
-    <app-admin-users></app-admin-users>
+    <ng-template appWindowTab="Main">
+        <app-admin-users></app-admin-users>
+    </ng-template>
 </app-window>
 
-<app-window *ngIf="logExplorerWindow as win" [x]="win.x" [y]="win.y" [title]="win.title" (closed)="closeLogExplorerWindow()">
-    <app-log-explorer></app-log-explorer>
+<app-window *ngIf="logExplorerWindow as win" [x]="win.x" [y]="win.y" [title]="win.title"
+    (closed)="closeLogExplorerWindow()">
+    <ng-template appWindowTab="List">
+        <app-log-explorer></app-log-explorer>
+    </ng-template>
+        <ng-template appWindowTab="Add log">
+        <app-log-explorer-new></app-log-explorer-new>
+    </ng-template>
+</app-window>
+
+<app-window *ngIf="investmentsWindow as win" [x]="win.x" [y]="win.y" [title]="win.title"
+(closed)="closeInvestmentsWindow()">
+    <ng-template appWindowTab="Total">
+        <app-investment-total></app-investment-total>
+    </ng-template>
+    <ng-template appWindowTab="Deposits">
+        <app-investment-depo></app-investment-depo>
+    </ng-template>
+    <ng-template appWindowTab="Bonds">
+        <app-investment-bonds></app-investment-bonds>
+    </ng-template>
+    <ng-template appWindowTab="Stocks">
+        <app-investment-stock></app-investment-stock>
+    </ng-template>
 </app-window>
