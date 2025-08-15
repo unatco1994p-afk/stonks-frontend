@@ -1,6 +1,19 @@
-<h1>Witaj w aplikacji</h1>
+<app-window [x]="20" [y]="20" [title]="'Authorization'">
+    <ng-template appWindowTab="Main">
+        <h1>Welcome in the Application</h1>
+        <button class="button" routerLink="/theme-test">Theme test</button>
+    </ng-template>
+    <ng-template appWindowTab="Login">
+        <app-login></app-login>
+    </ng-template>
+    <ng-template appWindowTab="Registration">
+        <app-register></app-register>
+    </ng-template>
+</app-window>
+
+<!-- <h1>Witaj w aplikacji</h1>
 <button class="button" routerLink="/login">Zaloguj</button>
 <button class="button" routerLink="/register">Rejestruj</button>
 <br />
 <br />
-<button class="button" routerLink="/theme-test">Theme test</button>
+<button class="button" routerLink="/theme-test">Theme test</button> -->

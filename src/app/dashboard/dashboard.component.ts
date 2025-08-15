@@ -1,12 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
-import { LogoutButtonComponent } from '../auth/components/logout-button.component';
+import { NgFor, NgIf } from '@angular/common';
 import { WindowComponent } from '../windows/window.component';
 import { UtMenubarComponent } from './menubar/utmenubar.component';
 import { Router } from '@angular/router';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { LogExplorerComponent } from './log-explorer/log-explorer.component';
+import { WindowTabDirective } from '../windows/window-tab.directive.component';
+import { LogExplorerNewComponent } from './log-explorer/log-explorer-new.component';
+import { InvestmentsBondsComponent } from './investments/investments-bonds.component';
+import { InvestmentsDepoComponent } from './investments/investments-depo.component';
+import { InvestmentsStockComponent } from './investments/investments-stock.component';
+import { InvestmentsTotalComponent } from './investments/investments-total.component';
 
 interface WindowData {
     id: number;
@@ -18,7 +22,9 @@ interface WindowData {
 @Component({
     standalone: true,
     selector: 'app-dashboard',
-    imports: [NgFor, NgIf, WindowComponent, UtMenubarComponent, AdminUsersComponent, LogExplorerComponent],
+    imports: [NgFor, NgIf, WindowComponent, UtMenubarComponent, AdminUsersComponent, LogExplorerComponent, LogExplorerNewComponent, WindowTabDirective,
+        InvestmentsBondsComponent, InvestmentsDepoComponent, InvestmentsStockComponent, InvestmentsTotalComponent
+    ],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })
@@ -26,12 +32,12 @@ export class DashboardComponent {
     windows: WindowData[] = [];
     usersWindow: WindowData | null = null;
     logExplorerWindow: WindowData | null = null;
+    investmentsWindow: WindowData | null = null;
 
     private nextId = 1;
 
     logs: any[] = [];
 
-    private api = inject(ApiService);
     private router = inject(Router);
 
     addWindow() {
@@ -55,25 +61,14 @@ export class DashboardComponent {
         this.logExplorerWindow = null;
     }
 
-    loadLogs() {
-        this.api.getLogs().subscribe(res => {
-            this.logs = res.logs || [];
-        });
-    }
-
-    addLog() {
-        this.api.addLog({ source: 'Angular frontend', note: 'Test entry' })
-            .subscribe(() => this.loadLogs());
-    }
-
-    getAdminUsers() {
-        this.api.getUsers().subscribe(users => console.log(users));
+    closeInvestmentsWindow() {
+        this.investmentsWindow = null;
     }
 
     menuItemSelected(item: string) {
         if (item === 'Logout') {
             localStorage.removeItem('token');
-            this.router.navigate(['/login']);
+            this.router.navigate(['/']);
         } else if (item === 'Users') {
             this.usersWindow = {
                 id: this.nextId++,
@@ -85,6 +80,13 @@ export class DashboardComponent {
             this.logExplorerWindow = {
                 id: this.nextId++,
                 title: 'Log Explorer',
+                x: 100 + Math.random() * 300,
+                y: 100 + Math.random() * 200
+            }
+        } else if (item === 'Investments') {
+            this.investmentsWindow = {
+                id: this.nextId++,
+                title: 'Investments',
                 x: 100 + Math.random() * 300,
                 y: 100 + Math.random() * 200
             }

@@ -21,20 +21,11 @@ interface Log {
 export class LogExplorerComponent implements OnInit {
     private api = inject(ApiService);
 
-    logs: Log[] = [];
-
-    content: string = '';   
+    logs: Log[] = []; 
 
     ngOnInit(): void {
         this.api.getLogs().subscribe(result => {
             this.logs = result.logs;
-        });
-    }
-
-    addLog(): void {
-        this.api.addLog({content: this.content}).subscribe(() => {
-            this.ngOnInit();
-            this.content = '';
         });
     }
 }

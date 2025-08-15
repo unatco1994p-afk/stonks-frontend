@@ -1,14 +1,21 @@
 <div class="ut99-window window" [ngStyle]="{'top.px': y, 'left.px': x}">
-  <div class="ut99-title window-header" (mousedown)="onMouseDown($event)">
-    {{ title }}
-    <button class="cross-button" (click)="onClose()">
-      ✖
-    </button>
-  </div>
-  <div class="ut99-tabs">
-    <button class="ut99-tab active">Main</button>
-  </div>
-  <div class="ut99-content window-body">
-    <ng-content></ng-content>
-  </div>
+    <div class="ut99-title window-header" (mousedown)="onMouseDown($event)">
+        {{ title }}
+        <button class="cross-button" (click)="onClose()">
+            ✖
+        </button>
+    </div>
+
+    <div class="ut99-tabs">
+        <button *ngFor="let tab of tabs; let i = index" class="ut99-tab" [class.active]="i === activeIndex"
+            (click)="setActive(i)">
+            {{ tab.title }}
+        </button>
+    </div>
+
+    <div class="ut99-content window-body">
+        <ng-container *ngIf="tabs.length">
+            <ng-container *ngTemplateOutlet="tabs.toArray()[activeIndex].template"></ng-container>
+        </ng-container>
+    </div>
 </div>
