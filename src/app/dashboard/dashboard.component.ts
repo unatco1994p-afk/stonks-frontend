@@ -44,8 +44,8 @@ export class DashboardComponent {
         this.windows.push({
             id: this.nextId++,
             title: 'Okno ' + this.nextId,
-            x: 100 + Math.random() * 300,
-            y: 100 + Math.random() * 200
+            x: 20 + Math.random() * 150,
+            y: 20 + Math.random() * 100
         });
     }
 
@@ -73,22 +73,22 @@ export class DashboardComponent {
             this.usersWindow = {
                 id: this.nextId++,
                 title: 'Users',
-                x: 100 + Math.random() * 300,
-                y: 100 + Math.random() * 200
+                x: 20 + Math.random() * 150,
+                y: 20 + Math.random() * 100
             }
         } else if (item === 'Log Explorer') {
             this.logExplorerWindow = {
                 id: this.nextId++,
                 title: 'Log Explorer',
-                x: 100 + Math.random() * 300,
-                y: 100 + Math.random() * 200
+                x: 20 + Math.random() * 150,
+                y: 20 + Math.random() * 100
             }
         } else if (item === 'Investments') {
             this.investmentsWindow = {
                 id: this.nextId++,
                 title: 'Investments',
-                x: 100 + Math.random() * 300,
-                y: 100 + Math.random() * 200
+                x: 20 + Math.random() * 150,
+                y: 20 + Math.random() * 100
             }
         }
     }

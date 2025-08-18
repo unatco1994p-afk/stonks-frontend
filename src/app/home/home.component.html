@@ -1,4 +1,4 @@
-<app-window [x]="20" [y]="20" [title]="'Authorization'">
+<app-window *ngIf="homeWindow as win" [x]="win.x" [y]="win.y" [title]="win.title" (closed)="closeWindow()">
     <ng-template appWindowTab="Main">
         <h1>Welcome in the Application</h1>
         <button class="button" routerLink="/theme-test">Theme test</button>
@@ -10,10 +10,3 @@
         <app-register></app-register>
     </ng-template>
 </app-window>
-
-<!-- <h1>Witaj w aplikacji</h1>
-<button class="button" routerLink="/login">Zaloguj</button>
-<button class="button" routerLink="/register">Rejestruj</button>
-<br />
-<br />
-<button class="button" routerLink="/theme-test">Theme test</button> -->
