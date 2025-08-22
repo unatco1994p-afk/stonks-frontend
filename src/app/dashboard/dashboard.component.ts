@@ -11,6 +11,7 @@ import { InvestmentsBondsComponent } from './investments/investments-bonds.compo
 import { InvestmentsDepoComponent } from './investments/investments-depo.component';
 import { InvestmentsStockComponent } from './investments/investments-stock.component';
 import { InvestmentsTotalComponent } from './investments/investments-total.component';
+import { InvestmentsCryptoComponent } from './investments/investments-cryoto.component';
 
 interface WindowData {
     id: number;
@@ -23,7 +24,7 @@ interface WindowData {
     standalone: true,
     selector: 'app-dashboard',
     imports: [NgFor, NgIf, WindowComponent, UtMenubarComponent, AdminUsersComponent, LogExplorerComponent, LogExplorerNewComponent, WindowTabDirective,
-        InvestmentsBondsComponent, InvestmentsDepoComponent, InvestmentsStockComponent, InvestmentsTotalComponent
+        InvestmentsBondsComponent, InvestmentsDepoComponent, InvestmentsStockComponent, InvestmentsTotalComponent, InvestmentsCryptoComponent
     ],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
