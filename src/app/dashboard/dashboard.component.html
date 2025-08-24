@@ -6,11 +6,6 @@
     </div>
 </div>
 
-<app-window *ngFor="let w of windows" [x]="w.x" [y]="w.y" [title]="w.title" (closed)="closeWindow(w.id)">
-    <p>Treść okna {{ w.id }}</p>
-    <button (click)="closeWindow(w.id)">Zamknij</button>
-</app-window>
-
 <app-window *ngIf="usersWindow as win" [x]="win.x" [y]="win.y" [title]="win.title" (closed)="closeUsersWindow()">
     <ng-template appWindowTab="Main">
         <app-admin-users></app-admin-users>
@@ -22,12 +17,12 @@
     <ng-template appWindowTab="List">
         <app-log-explorer></app-log-explorer>
     </ng-template>
-        <ng-template appWindowTab="Add log">
+    <ng-template appWindowTab="Add log">
         <app-log-explorer-new></app-log-explorer-new>
     </ng-template>
 </app-window>
 
-<app-window *ngIf="investmentsWindow as win" [x]="win.x" [y]="win.y" [title]="win.title"
+<app-window *ngIf="investmentsWindow as win" [x]="win.x" [y]="win.y" [title]="win.title" [width]="win.width"
 (closed)="closeInvestmentsWindow()">
     <ng-template appWindowTab="Total">
         <app-investment-total></app-investment-total>

@@ -3,9 +3,9 @@
         (mouseenter)="hoverMenu('Administration', $event)">
         Administration
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Administration'">
-            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (click)="onItem('Users')">Users</div>
-            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (click)="onItem('Roles')">Roles</div>
-            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (click)="onItem('Permissions')">Permissions</div>
+            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (mouseenter)="playHover()" (click)="onItem('Users')">Users</div>
+            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (mouseenter)="playHover()" (click)="onItem('Roles')">Roles</div>
+            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (mouseenter)="playHover()" (click)="onItem('Permissions')">Permissions</div>
         </div>
     </div>
 
@@ -13,8 +13,8 @@
         (mouseenter)="hoverMenu('Stonks', $event)">
         Stonks
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Stonks'">
-            <div class="ut-dropdown-item" (click)="onItem('Investments')">Investments</div>
-            <div class="ut-dropdown-item" (click)="onItem('Dashboard')">Dashboard</div>
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Investments')">Investments</div>
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Dashboard')">Dashboard</div>
         </div>
     </div>
 
@@ -22,7 +22,7 @@
         (mouseenter)="hoverMenu('Utility', $event)">
         Utility
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Utility'">
-            <div class="ut-dropdown-item" (click)="onItem('Log Explorer')">Log Explorer</div>
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Log Explorer')">Log Explorer</div>
             <!-- <div class="ut-dropdown-item disabled" (click)="onItem('IP Calculator')">IP Calculator</div>
             <div class="ut-dropdown-item disabled" (click)="onItem('Controls')">Controls</div> -->
         </div>
@@ -32,7 +32,7 @@
         (mouseenter)="hoverMenu('Settings', $event)">
         Settings
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Settings'">
-            <div class="ut-dropdown-item" (click)="onItem('Preferences')">Preferences</div>
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Preferences')">Preferences</div>
         </div>
     </div>
 
@@ -40,8 +40,8 @@
         (mouseenter)="hoverMenu('Account', $event)">
         Account: {{email}} ({{role}})
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Account'">
-            <div class="ut-dropdown-item disabled" (click)="onItem('About')">About</div>
-            <div class="ut-dropdown-item" (click)="onItem('Logout')">Logout</div>
+            <div class="ut-dropdown-item disabled" (mouseenter)="playHover()" (click)="onItem('About')">About</div>
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Logout')">Logout</div>
         </div>
     </div>
 </nav>

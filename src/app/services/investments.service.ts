@@ -34,8 +34,8 @@ export interface Bond {
     bondTicker: string,
     interest: number,
     interestsList?: string,
-    startDate: string,
-    dueDate: string
+    startDate: any,
+    dueDate: any
 }
 
 export interface Stock {

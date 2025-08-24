@@ -2,6 +2,14 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ContentChildren, EventEmitter, HostListener, Input, Output, QueryList } from '@angular/core';
 import { WindowTabDirective } from './window-tab.directive.component';
 
+export interface WindowData {
+    id: number;
+    title: string;
+    x: number;
+    y: number;
+    width?: number;
+}
+
 @Component({
     standalone: true,
     selector: 'app-window',
@@ -13,6 +21,8 @@ export class WindowComponent implements AfterViewInit {
     @Input() title = 'Okno';
     @Input() x = 100;
     @Input() y = 100;
+
+    @Input() width? = 600;
 
     @ContentChildren(WindowTabDirective, { descendants: true }) tabs!: QueryList<WindowTabDirective>;
 

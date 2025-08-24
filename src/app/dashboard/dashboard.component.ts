@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { WindowComponent } from '../windows/window.component';
+import { WindowComponent, WindowData } from '../windows/window.component';
 import { UtMenubarComponent } from './menubar/utmenubar.component';
 import { Router } from '@angular/router';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
@@ -13,13 +13,6 @@ import { InvestmentsStockComponent } from './investments/investments-stock.compo
 import { InvestmentsTotalComponent } from './investments/investments-total.component';
 import { InvestmentsCryptoComponent } from './investments/investments-cryoto.component';
 
-interface WindowData {
-    id: number;
-    title: string;
-    x: number;
-    y: number;
-}
-
 @Component({
     standalone: true,
     selector: 'app-dashboard',
@@ -30,29 +23,15 @@ interface WindowData {
     styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-    windows: WindowData[] = [];
+    private windowSound = new Audio('assets/sounds/window.wav');
+    
     usersWindow: WindowData | null = null;
     logExplorerWindow: WindowData | null = null;
     investmentsWindow: WindowData | null = null;
 
     private nextId = 1;
 
-    logs: any[] = [];
-
     private router = inject(Router);
-
-    addWindow() {
-        this.windows.push({
-            id: this.nextId++,
-            title: 'Okno ' + this.nextId,
-            x: 20 + Math.random() * 150,
-            y: 20 + Math.random() * 100
-        });
-    }
-
-    closeWindow(id: number) {
-        this.windows = this.windows.filter(w => w.id !== id);
-    }
 
     closeUsersWindow() {
         this.usersWindow = null;
@@ -71,6 +50,7 @@ export class DashboardComponent {
             localStorage.removeItem('token');
             this.router.navigate(['/']);
         } else if (item === 'Users') {
+            this.playWindow();
             this.usersWindow = {
                 id: this.nextId++,
                 title: 'Users',
@@ -78,6 +58,7 @@ export class DashboardComponent {
                 y: 20 + Math.random() * 100
             }
         } else if (item === 'Log Explorer') {
+            this.playWindow();
             this.logExplorerWindow = {
                 id: this.nextId++,
                 title: 'Log Explorer',
@@ -85,12 +66,20 @@ export class DashboardComponent {
                 y: 20 + Math.random() * 100
             }
         } else if (item === 'Investments') {
+            this.playWindow();
             this.investmentsWindow = {
                 id: this.nextId++,
                 title: 'Investments',
                 x: 20 + Math.random() * 150,
-                y: 20 + Math.random() * 100
+                y: 20 + Math.random() * 100,
+                width: 1000
             }
         }
+    }
+
+    playWindow() {
+        this.windowSound.currentTime = 0;
+        this.windowSound.volume = 0.5;
+        this.windowSound.play();
     }
 }

@@ -1,4 +1,4 @@
-<div class="ut99-window window" [ngStyle]="{'top.px': y, 'left.px': x}">
+<div class="ut99-window window" [ngStyle]="{'top.px': y, 'left.px': x}" [style.width]="width+'px'">
     <div class="ut99-title window-header" (mousedown)="onMouseDown($event)">
         {{ title }}
         <div class="ut99-cross" (click)="onClose()">

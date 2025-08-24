@@ -13,6 +13,9 @@ import { AuthService } from '../../auth/auth.service';
 export class UtMenubarComponent implements OnInit {
     private authService = inject(AuthService);
     
+    private hoverSound = new Audio('assets/sounds/hover.wav');
+    private menuSound = new Audio('assets/sounds/menu.wav');
+
     @Output() itemSelected = new EventEmitter<string>();
 
     openMenu: string | null = null;
@@ -28,15 +31,24 @@ export class UtMenubarComponent implements OnInit {
     }
 
     toggleMenu(menu: string, event: MouseEvent) {
-        // zapobiegamy bubble do document click
+        console.log(`toggleMenu:${menu}`);
+        
         event.stopPropagation();
         this.openMenu = this.openMenu === menu ? null : menu;
+
+        if (this.openMenu) {
+            this.playMenu();
+        }
     }
 
     hoverMenu(menu: string, event: MouseEvent) {
         if (this.openMenu) {
             event.stopPropagation();
             this.openMenu = this.openMenu === menu ? null : menu;
+        }
+
+        if (this.openMenu) {
+            this.playMenu();
         }
     }
 
@@ -45,6 +57,11 @@ export class UtMenubarComponent implements OnInit {
         console.log('Menu item clicked:', item);
         this.openMenu = null;
         this.itemSelected.emit(item);
+
+        this.menuSound.muted = true;
+        setTimeout(() => {
+            this.menuSound.muted = false;
+        }, 350);
     }
 
     @HostListener('document:click', ['$event'])
@@ -56,5 +73,17 @@ export class UtMenubarComponent implements OnInit {
     @HostListener('document:keydown.escape', ['$event'])
     onEsc(_: KeyboardEvent) {
         this.openMenu = null;
+    }
+
+    playHover() {
+        this.hoverSound.currentTime = 0;
+        this.hoverSound.volume = 0.5;
+        this.hoverSound.play();
+    }
+
+    playMenu() {
+        this.menuSound.currentTime = 0;
+        this.menuSound.volume = 0.5;
+        this.menuSound.play();
     }
 }
