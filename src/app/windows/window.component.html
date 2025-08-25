@@ -1,4 +1,4 @@
-<div class="ut99-window window" [ngStyle]="{'top.px': y, 'left.px': x}" [style.width]="width+'px'">
+<div class="ut99-window window" [ngStyle]="{'top.px': y, 'left.px': x}" [style.width]="width+'px'" [style.z-index]="zIndex">
     <div class="ut99-title window-header" (mousedown)="onMouseDown($event)">
         {{ title }}
         <div class="ut99-cross" (click)="onClose()">
@@ -15,14 +15,15 @@
 
     <div class="ut99-content window-body">
         <ng-container *ngIf="tabs.length">
-            <ng-container *ngTemplateOutlet="tabs.toArray()[activeIndex].template"></ng-container>
+            <ng-container *ngTemplateOutlet="tabs[activeIndex].template"></ng-container>
         </ng-container>
     </div>
 
     <div class="ut99-status-bar" style="display: flex; flex-direction: row-reverse;">
         <!-- TODO, something in status bar -->
-        <button (click)="onClose()">
-            Close
-        </button>
+        <ng-container *ngIf="statusBar">
+            <ng-container *ngTemplateOutlet="statusBar"></ng-container>
+        </ng-container>
+        <button (click)="onClose()">Close</button>
     </div>
 </div>

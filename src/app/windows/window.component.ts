@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, EventEmitter, HostListener, Input, Output, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, HostBinding, HostListener, Input, Output, QueryList, TemplateRef } from '@angular/core';
 import { WindowTabDirective } from './window-tab.directive.component';
 
 export interface WindowData {
@@ -24,9 +24,17 @@ export class WindowComponent implements AfterViewInit {
 
     @Input() width? = 600;
 
-    @ContentChildren(WindowTabDirective, { descendants: true }) tabs!: QueryList<WindowTabDirective>;
+    @Input() zIndex = 100;
+
+    @Input() tabs: WindowTabDirective[] = [];
+
+    @Input() statusBar?: TemplateRef<any>;
+
+    // @ContentChildren(WindowTabDirective, { descendants: true }) tabs!: QueryList<WindowTabDirective>;
 
     @Output() closed = new EventEmitter<void>();
+
+    @Output() focus = new EventEmitter<void>();
 
     activeIndex = 0;
 
@@ -49,7 +57,13 @@ export class WindowComponent implements AfterViewInit {
         this.closed.emit();
     }
 
+    onFocus() {
+        this.focus.emit();
+    }
+
     onMouseDown(event: MouseEvent) {
+        this.onFocus();
+
         this.dragging = true;
         this.offsetX = event.clientX - this.x;
         this.offsetY = event.clientY - this.y;

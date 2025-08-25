@@ -1,12 +1,13 @@
-<app-window *ngIf="homeWindow as win" [x]="win.x" [y]="win.y" [title]="win.title" (closed)="closeWindow()">
-    <ng-template appWindowTab="Main">
-        <h1>Welcome in the Application</h1>
-        <button class="button" routerLink="/theme-test">Theme test</button>
-    </ng-template>
-    <ng-template appWindowTab="Login">
-        <app-login></app-login>
-    </ng-template>
-    <ng-template appWindowTab="Registration">
-        <app-register></app-register>
-    </ng-template>
+<ng-template appWindowTab="Main" #tabMain="appWindowTab">
+    <h1>Welcome in the Application</h1>
+    <button class="button" routerLink="/theme-test">Theme test</button>
+</ng-template>
+<ng-template appWindowTab="Login" #tabLogin="appWindowTab">
+    <app-login></app-login>
+</ng-template>
+<ng-template appWindowTab="Registration" #tabRegister="appWindowTab">
+    <app-register></app-register>
+</ng-template>
+
+<app-window *ngIf="homeWindow as win" [x]="win.x" [y]="win.y" [title]="win.title" [tabs]="[tabMain, tabLogin, tabRegister]" (closed)="closeWindow()">
 </app-window>

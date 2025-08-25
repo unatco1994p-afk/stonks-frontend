@@ -1,0 +1,15 @@
+<ng-template appWindowTab="Main" #tabMain="appWindowTab">
+    <p>Unnamed application</p>
+</ng-template>
+
+<ng-template appWindowTab="Info" #tabInfo="appWindowTab">
+  <p>Extra content</p>
+</ng-template>
+
+<!-- <ng-template #status>
+  <span>Status: OK</span>
+</ng-template> -->
+
+<app-window [zIndex]="zIndex"
+ [x]="x" [y]="y" [width]="200" [title]="'About'" [tabs]="[tabMain, tabInfo]" (closed)="close.emit()" (focus)="focus.emit()">
+</app-window>

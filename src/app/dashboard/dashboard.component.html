@@ -2,41 +2,9 @@
 
 <div class="center">
     <div class="infinity">
-
     </div>
 </div>
 
-<app-window *ngIf="usersWindow as win" [x]="win.x" [y]="win.y" [title]="win.title" (closed)="closeUsersWindow()">
-    <ng-template appWindowTab="Main">
-        <app-admin-users></app-admin-users>
-    </ng-template>
-</app-window>
+<div #windowContainer></div>
 
-<app-window *ngIf="logExplorerWindow as win" [x]="win.x" [y]="win.y" [title]="win.title"
-    (closed)="closeLogExplorerWindow()">
-    <ng-template appWindowTab="List">
-        <app-log-explorer></app-log-explorer>
-    </ng-template>
-    <ng-template appWindowTab="Add log">
-        <app-log-explorer-new></app-log-explorer-new>
-    </ng-template>
-</app-window>
-
-<app-window *ngIf="investmentsWindow as win" [x]="win.x" [y]="win.y" [title]="win.title" [width]="win.width"
-(closed)="closeInvestmentsWindow()">
-    <ng-template appWindowTab="Total">
-        <app-investment-total></app-investment-total>
-    </ng-template>
-    <ng-template appWindowTab="Deposits">
-        <app-investment-depo></app-investment-depo>
-    </ng-template>
-    <ng-template appWindowTab="Crypto">
-        <app-investment-crypto></app-investment-crypto>
-    </ng-template>
-    <ng-template appWindowTab="Bonds">
-        <app-investment-bonds></app-investment-bonds>
-    </ng-template>
-    <ng-template appWindowTab="Stocks">
-        <app-investment-stock></app-investment-stock>
-    </ng-template>
-</app-window>
+<!-- TODO: statusbar -->

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild, ViewContainerRef } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { WindowComponent, WindowData } from '../windows/window.component';
 import { UtMenubarComponent } from './menubar/utmenubar.component';
@@ -12,74 +12,40 @@ import { InvestmentsDepoComponent } from './investments/investments-depo.compone
 import { InvestmentsStockComponent } from './investments/investments-stock.component';
 import { InvestmentsTotalComponent } from './investments/investments-total.component';
 import { InvestmentsCryptoComponent } from './investments/investments-cryoto.component';
+import { WindowRegisterService } from '../windows/window-register.service';
+import { AboutWindowComponent } from './about/about.window.component';
+import { AdminUsersWindowComponent } from './admin-users/admin-users.window.component';
+import { LogExplorerWindowComponent } from './log-explorer/log-explorer.window.component';
+import { InvestmentsWindowComponent } from './investments/investments.window.component';
 
 @Component({
     standalone: true,
     selector: 'app-dashboard',
-    imports: [NgFor, NgIf, WindowComponent, UtMenubarComponent, AdminUsersComponent, LogExplorerComponent, LogExplorerNewComponent, WindowTabDirective,
-        InvestmentsBondsComponent, InvestmentsDepoComponent, InvestmentsStockComponent, InvestmentsTotalComponent, InvestmentsCryptoComponent
+    imports: [NgFor, NgIf, WindowComponent, UtMenubarComponent,
+        InvestmentsWindowComponent, LogExplorerWindowComponent, AdminUsersWindowComponent, AboutWindowComponent
     ],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-    private windowSound = new Audio('assets/sounds/window.wav');
+    private windowRegister = inject(WindowRegisterService);
     
-    usersWindow: WindowData | null = null;
-    logExplorerWindow: WindowData | null = null;
-    investmentsWindow: WindowData | null = null;
-
-    private nextId = 1;
+    @ViewChild('windowContainer', { read: ViewContainerRef }) windowContainer!: ViewContainerRef;
 
     private router = inject(Router);
-
-    closeUsersWindow() {
-        this.usersWindow = null;
-    }
-
-    closeLogExplorerWindow() {
-        this.logExplorerWindow = null;
-    }
-
-    closeInvestmentsWindow() {
-        this.investmentsWindow = null;
-    }
 
     menuItemSelected(item: string) {
         if (item === 'Logout') {
             localStorage.removeItem('token');
             this.router.navigate(['/']);
         } else if (item === 'Users') {
-            this.playWindow();
-            this.usersWindow = {
-                id: this.nextId++,
-                title: 'Users',
-                x: 20 + Math.random() * 150,
-                y: 20 + Math.random() * 100
-            }
+            this.windowRegister.registerWindow(this.windowContainer, AdminUsersWindowComponent);
         } else if (item === 'Log Explorer') {
-            this.playWindow();
-            this.logExplorerWindow = {
-                id: this.nextId++,
-                title: 'Log Explorer',
-                x: 20 + Math.random() * 150,
-                y: 20 + Math.random() * 100
-            }
+            this.windowRegister.registerWindow(this.windowContainer, LogExplorerWindowComponent);
         } else if (item === 'Investments') {
-            this.playWindow();
-            this.investmentsWindow = {
-                id: this.nextId++,
-                title: 'Investments',
-                x: 20 + Math.random() * 150,
-                y: 20 + Math.random() * 100,
-                width: 1000
-            }
+            this.windowRegister.registerWindow(this.windowContainer, InvestmentsWindowComponent, true);
+        } else if (item === 'About') {
+            this.windowRegister.registerWindow(this.windowContainer, AboutWindowComponent);
         }
-    }
-
-    playWindow() {
-        this.windowSound.currentTime = 0;
-        this.windowSound.volume = 0.5;
-        this.windowSound.play();
     }
 }
