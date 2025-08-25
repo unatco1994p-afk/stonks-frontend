@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild, ViewContainerRef } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { WindowComponent } from '../windows/window.component';
+import { WindowComponent, WindowData } from '../windows/window.component';
 import { UtMenubarComponent } from './menubar/utmenubar.component';
 import { Router } from '@angular/router';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
@@ -11,85 +11,41 @@ import { InvestmentsBondsComponent } from './investments/investments-bonds.compo
 import { InvestmentsDepoComponent } from './investments/investments-depo.component';
 import { InvestmentsStockComponent } from './investments/investments-stock.component';
 import { InvestmentsTotalComponent } from './investments/investments-total.component';
-
-interface WindowData {
-    id: number;
-    title: string;
-    x: number;
-    y: number;
-}
+import { InvestmentsCryptoComponent } from './investments/investments-cryoto.component';
+import { WindowRegisterService } from '../windows/window-register.service';
+import { AboutWindowComponent } from './about/about.window.component';
+import { AdminUsersWindowComponent } from './admin-users/admin-users.window.component';
+import { LogExplorerWindowComponent } from './log-explorer/log-explorer.window.component';
+import { InvestmentsWindowComponent } from './investments/investments.window.component';
 
 @Component({
     standalone: true,
     selector: 'app-dashboard',
-    imports: [NgFor, NgIf, WindowComponent, UtMenubarComponent, AdminUsersComponent, LogExplorerComponent, LogExplorerNewComponent, WindowTabDirective,
-        InvestmentsBondsComponent, InvestmentsDepoComponent, InvestmentsStockComponent, InvestmentsTotalComponent
+    imports: [NgFor, NgIf, WindowComponent, UtMenubarComponent,
+        InvestmentsWindowComponent, LogExplorerWindowComponent, AdminUsersWindowComponent, AboutWindowComponent
     ],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-    windows: WindowData[] = [];
-    usersWindow: WindowData | null = null;
-    logExplorerWindow: WindowData | null = null;
-    investmentsWindow: WindowData | null = null;
-
-    private nextId = 1;
-
-    logs: any[] = [];
+    private windowRegister = inject(WindowRegisterService);
+    
+    @ViewChild('windowContainer', { read: ViewContainerRef }) windowContainer!: ViewContainerRef;
 
     private router = inject(Router);
-
-    addWindow() {
-        this.windows.push({
-            id: this.nextId++,
-            title: 'Okno ' + this.nextId,
-            x: 20 + Math.random() * 150,
-            y: 20 + Math.random() * 100
-        });
-    }
-
-    closeWindow(id: number) {
-        this.windows = this.windows.filter(w => w.id !== id);
-    }
-
-    closeUsersWindow() {
-        this.usersWindow = null;
-    }
-
-    closeLogExplorerWindow() {
-        this.logExplorerWindow = null;
-    }
-
-    closeInvestmentsWindow() {
-        this.investmentsWindow = null;
-    }
 
     menuItemSelected(item: string) {
         if (item === 'Logout') {
             localStorage.removeItem('token');
             this.router.navigate(['/']);
         } else if (item === 'Users') {
-            this.usersWindow = {
-                id: this.nextId++,
-                title: 'Users',
-                x: 20 + Math.random() * 150,
-                y: 20 + Math.random() * 100
-            }
+            this.windowRegister.registerWindow(this.windowContainer, AdminUsersWindowComponent);
         } else if (item === 'Log Explorer') {
-            this.logExplorerWindow = {
-                id: this.nextId++,
-                title: 'Log Explorer',
-                x: 20 + Math.random() * 150,
-                y: 20 + Math.random() * 100
-            }
+            this.windowRegister.registerWindow(this.windowContainer, LogExplorerWindowComponent);
         } else if (item === 'Investments') {
-            this.investmentsWindow = {
-                id: this.nextId++,
-                title: 'Investments',
-                x: 20 + Math.random() * 150,
-                y: 20 + Math.random() * 100
-            }
+            this.windowRegister.registerWindow(this.windowContainer, InvestmentsWindowComponent, true);
+        } else if (item === 'About') {
+            this.windowRegister.registerWindow(this.windowContainer, AboutWindowComponent);
         }
     }
 }

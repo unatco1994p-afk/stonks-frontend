@@ -1,6 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, EventEmitter, HostListener, Input, Output, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, HostBinding, HostListener, Input, Output, QueryList, TemplateRef } from '@angular/core';
 import { WindowTabDirective } from './window-tab.directive.component';
+
+export interface WindowData {
+    id: number;
+    title: string;
+    x: number;
+    y: number;
+    width?: number;
+}
 
 @Component({
     standalone: true,
@@ -14,9 +22,19 @@ export class WindowComponent implements AfterViewInit {
     @Input() x = 100;
     @Input() y = 100;
 
-    @ContentChildren(WindowTabDirective, { descendants: true }) tabs!: QueryList<WindowTabDirective>;
+    @Input() width? = 600;
+
+    @Input() zIndex = 100;
+
+    @Input() tabs: WindowTabDirective[] = [];
+
+    @Input() statusBar?: TemplateRef<any>;
+
+    // @ContentChildren(WindowTabDirective, { descendants: true }) tabs!: QueryList<WindowTabDirective>;
 
     @Output() closed = new EventEmitter<void>();
+
+    @Output() focus = new EventEmitter<void>();
 
     activeIndex = 0;
 
@@ -39,7 +57,13 @@ export class WindowComponent implements AfterViewInit {
         this.closed.emit();
     }
 
+    onFocus() {
+        this.focus.emit();
+    }
+
     onMouseDown(event: MouseEvent) {
+        this.onFocus();
+
         this.dragging = true;
         this.offsetX = event.clientX - this.x;
         this.offsetY = event.clientY - this.y;
