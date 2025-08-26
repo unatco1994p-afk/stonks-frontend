@@ -16,7 +16,7 @@
                 <td>{{log.ip}}</td>
                 <td>{{log.content}}</td>
                 <td>{{log.userAgent}}</td>
-                <td>{{log.createdAt._seconds*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td>{{log.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
             </tr>
         </tbody>
     </table>

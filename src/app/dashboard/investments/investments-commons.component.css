@@ -19,26 +19,11 @@
 }
 
 label {
-  font-weight: 600;
   margin-bottom: 5px;
-}
-
-/* input, textarea {
-  padding: 8px;
-} */
-
-textarea {
-  resize: vertical;
-  min-height: 50px;
 }
 
 .error {
   font-size: 0.85rem;
   color: #d9534f;
   margin-top: 4px;
-}
-
-.form-actions {
-  margin-top: 20px;
-  text-align: right;
 }

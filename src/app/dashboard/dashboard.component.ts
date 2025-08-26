@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild, ViewContainerRef } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { WindowComponent, WindowData } from '../windows/window.component';
 import { UtMenubarComponent } from './menubar/utmenubar.component';
@@ -27,25 +27,29 @@ import { InvestmentsWindowComponent } from './investments/investments.window.com
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export class DashboardComponent implements AfterViewInit {
     private windowRegister = inject(WindowRegisterService);
     
     @ViewChild('windowContainer', { read: ViewContainerRef }) windowContainer!: ViewContainerRef;
 
     private router = inject(Router);
 
+    ngAfterViewInit(): void {
+        this.windowRegister.setViewContainer(this.windowContainer);
+    }
+
     menuItemSelected(item: string) {
         if (item === 'Logout') {
             localStorage.removeItem('token');
             this.router.navigate(['/']);
         } else if (item === 'Users') {
-            this.windowRegister.registerWindow(this.windowContainer, AdminUsersWindowComponent);
+            this.windowRegister.registerWindow(AdminUsersWindowComponent);
         } else if (item === 'Log Explorer') {
-            this.windowRegister.registerWindow(this.windowContainer, LogExplorerWindowComponent);
+            this.windowRegister.registerWindow(LogExplorerWindowComponent);
         } else if (item === 'Investments') {
-            this.windowRegister.registerWindow(this.windowContainer, InvestmentsWindowComponent, true);
+            this.windowRegister.registerWindow(InvestmentsWindowComponent, false); // TODO: fix singletons
         } else if (item === 'About') {
-            this.windowRegister.registerWindow(this.windowContainer, AboutWindowComponent);
+            this.windowRegister.registerWindow(AboutWindowComponent);
         }
     }
 }

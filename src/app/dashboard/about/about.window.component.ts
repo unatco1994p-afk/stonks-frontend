@@ -10,5 +10,5 @@ import { WindowTabDirective } from "../../windows/window-tab.directive.component
     templateUrl: './about.window.component.html'
 })
 export class AboutWindowComponent extends AbstractWindow {
-
+    override windowName = 'About';
 }

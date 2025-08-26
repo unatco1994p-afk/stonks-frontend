@@ -2,15 +2,18 @@ import { CommonModule } from "@angular/common";
 import { Component, inject, Input, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Bond, InvestmentsService } from "../../services/investments.service";
+import { AbstractWindow } from "../../windows/abstract-window.component";
+import { WindowTabDirective } from "../../windows/window-tab.directive.component";
+import { WindowComponent } from "../../windows/window.component";
 
 @Component({
     standalone: true,
     selector: 'app-investment-bonds-edit',
-    imports: [CommonModule, ReactiveFormsModule],
-    templateUrl: './investments-bonds-edit.component.html',
+    imports: [WindowComponent, WindowTabDirective, CommonModule, ReactiveFormsModule],
+    templateUrl: './investments-bonds-edit.window.component.html',
     styleUrl: './investments-commons.component.css',
 })
-export class InvestmentsBondsEditComponent implements OnInit {
+export class InvestmentsBondsEditWindowComponent extends AbstractWindow implements OnInit {
     private service = inject(InvestmentsService);
     private fb = inject(FormBuilder);
 
@@ -18,6 +21,8 @@ export class InvestmentsBondsEditComponent implements OnInit {
 
     @Input() bond?: Bond;
     @Input() id?: string;
+
+    override windowName = 'Bond Details';
 
     ngOnInit(): void {
         this.bondForm = this.fb.group({

@@ -12,5 +12,5 @@ import { LogExplorerNewComponent } from "./log-explorer-new.component";
     templateUrl: './log-explorer.window.component.html'
 })
 export class LogExplorerWindowComponent extends AbstractWindow {
-
+    override windowName = 'Log Explorer';
 }

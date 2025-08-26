@@ -11,5 +11,5 @@ import { AdminUsersComponent } from "./admin-users.component";
     templateUrl: './admin-users.window.component.html'
 })
 export class AdminUsersWindowComponent extends AbstractWindow {
-
+    override windowName = 'Users';
 }

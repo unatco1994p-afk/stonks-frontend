@@ -15,5 +15,5 @@ import { InvestmentsTotalComponent } from "./investments-total.component";
     templateUrl: './investments.window.component.html'
 })
 export class InvestmentsWindowComponent extends AbstractWindow {
-
+    override windowName = 'Investments';
 }

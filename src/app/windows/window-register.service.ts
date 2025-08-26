@@ -7,6 +7,7 @@ export interface WindowEntry {
     ref: ComponentRef<AbstractWindow>;
     zIndex: number;
     active: boolean;
+    name: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -20,7 +21,13 @@ export class WindowRegisterService {
     private windows$ = new BehaviorSubject<WindowEntry[]>([]);
     windowsChanges$ = this.windows$.asObservable();
 
-    registerWindow(viewContainer: ViewContainerRef, windowType: Type<AbstractWindow>, singleton: boolean = false) {
+    private viewContainer!: ViewContainerRef;
+
+    setViewContainer(viewContainer: ViewContainerRef) {
+        this.viewContainer = viewContainer;
+    }
+
+    registerWindow(windowType: Type<AbstractWindow>, singleton: boolean = false, inputs: {[key: string]: any} = {}) {     
         if (singleton) {
             const existing = this.windows.find(w => w.ref.instance instanceof windowType);
             if (existing) {
@@ -30,18 +37,23 @@ export class WindowRegisterService {
             }
         }
         
-        const ref = viewContainer.createComponent(windowType);
+        const ref = this.viewContainer.createComponent(windowType);
 
         const entry: WindowEntry = {
             id: ++this.idCounter,
             ref,
             zIndex: this.baseZIndex + this.windows.length,
-            active: false
+            active: false,
+            name: ref.instance.windowName
         };
 
         this.windows.push(entry);
 
         this.setActive(entry);
+
+        Object.entries(inputs).forEach(([key, value]) => {
+            ref.setInput(key, value);
+        });
 
         ref.instance.close.subscribe(() => this.closeWindow(entry));
         ref.instance.focus.subscribe(() => {

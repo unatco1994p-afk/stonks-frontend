@@ -52,7 +52,7 @@
             </div>
             <div *ngFor="let w of windowsManagerItems"
                 class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onWindow(w.id)">
-                {{w.ref.instance.constructor.name}}: {{w.id}}
+                {{w.ref.instance.windowName}}: {{w.id}}
             </div>
         </div>
     </div>

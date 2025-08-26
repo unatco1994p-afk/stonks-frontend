@@ -24,6 +24,8 @@
         <ng-container *ngIf="statusBar">
             <ng-container *ngTemplateOutlet="statusBar"></ng-container>
         </ng-container>
-        <button (click)="onClose()">Close</button>
+        <ng-container *ngIf="!statusBar">
+            <button (click)="onClose()">Close</button>
+        </ng-container>
     </div>
 </div>

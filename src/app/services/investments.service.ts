@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 export interface Deposit {
+    id: string,
     name: string,
     spot: string,
     description?: string,
@@ -14,6 +15,7 @@ export interface Deposit {
 }
 
 export interface Crypto {
+    id: string,
     name: string,
     spot: string,
     description?: string,
@@ -26,6 +28,7 @@ export interface Crypto {
 }
 
 export interface Bond {
+    id: string,
     name: string,
     spot: string,
     description?: string,
@@ -39,6 +42,7 @@ export interface Bond {
 }
 
 export interface Stock {
+    id: string,
     name: string,
     spot: string,
     description?: string,

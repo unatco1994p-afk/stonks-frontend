@@ -6,7 +6,7 @@ import { FormsModule } from "@angular/forms";
 interface Log {
     id: string,
     ip: string,
-    createdAt: {_seconds: number, _nanoseconds: number},
+    createdAt: string,
     content: string,
     userAgent: string,
 }
