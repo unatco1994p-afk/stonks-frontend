@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
 import { InvestmentsBondsEditWindowComponent } from "./investments-bonds-edit.window.component";
-import { WindowComponent, WindowData } from "../../window.component";
 import { Bond, InvestmentsService } from "../../../services/investments.service";
 import { WindowRegisterService } from "../../window-register.service";
 import { QuestionWindowComponent } from "../../shared/question.window.component";

@@ -1,15 +1,21 @@
-<table class="ut99-table">
+<button (click)="refresh()">Refresh</button>
+
+<table style="margin-top: 4px;" class="ut99-table">
     <thead>
     <tr>
         <th>Email</th>
         <th>Roles</th>
         <th>Created At</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     
     <tr *ngFor="let user of users">
-        <td>{{user.email}}</td><td>{{user.roles}}</td><td>{{user.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.roles}}</td>
+        <td>{{user.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td><a (click)="editRoles(user)">Edit</a>&nbsp;<a (click)="deleteUser(user)">Delete</a></td>
     </tr>
     </tbody>
 </table>
