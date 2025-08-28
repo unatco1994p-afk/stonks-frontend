@@ -1,47 +1,68 @@
 <nav class="ut-menubar" role="menubar" aria-label="UT Menu">
     <div class="ut-menu" [class.active]="openMenu === 'Administration'" (click)="toggleMenu('Administration', $event)"
-        (mouseenter)="hoverMenu('Administration', $event)">
+        (mouseenter)="hoverMenu('Administration', $event)" (mouseout)="sendMessage(null)">
         Administration
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Administration'">
-            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (click)="onItem('Users')">Users</div>
-            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (click)="onItem('Roles')">Roles</div>
-            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (click)="onItem('Permissions')">Permissions</div>
+            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (mouseenter)="playHover()" (click)="onItem('Users')">Users</div>
+            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (mouseenter)="playHover()" (click)="onItem('Roles')">Roles</div>
+            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (mouseenter)="playHover()" (click)="onItem('Permissions')">Permissions</div>
         </div>
     </div>
 
     <div *ngIf="isAdmin" class="ut-menu" [class.active]="openMenu === 'Stonks'" (click)="toggleMenu('Stonks', $event)"
-        (mouseenter)="hoverMenu('Stonks', $event)">
+        (mouseenter)="hoverMenu('Stonks', $event)" (mouseout)="sendMessage(null)">
         Stonks
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Stonks'">
-            <div class="ut-dropdown-item" (click)="onItem('Investments')">Investments</div>
-            <div class="ut-dropdown-item" (click)="onItem('Dashboard')">Dashboard</div>
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Investments')">Investments</div>
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Dashboard')">Dashboard</div>
         </div>
     </div>
 
     <div class="ut-menu" [class.active]="openMenu === 'Utility'" (click)="toggleMenu('Utility', $event)"
-        (mouseenter)="hoverMenu('Utility', $event)">
+        (mouseenter)="hoverMenu('Utility', $event)" (mouseout)="sendMessage(null)">
         Utility
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Utility'">
-            <div class="ut-dropdown-item" (click)="onItem('Log Explorer')">Log Explorer</div>
-            <!-- <div class="ut-dropdown-item disabled" (click)="onItem('IP Calculator')">IP Calculator</div>
-            <div class="ut-dropdown-item disabled" (click)="onItem('Controls')">Controls</div> -->
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Log Explorer')">Log Explorer</div>
         </div>
     </div>
 
     <div class="ut-menu" [class.active]="openMenu === 'Settings'" (click)="toggleMenu('Settings', $event)"
-        (mouseenter)="hoverMenu('Settings', $event)">
+        (mouseenter)="hoverMenu('Settings', $event)" (mouseout)="sendMessage(null)">
         Settings
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Settings'">
-            <div class="ut-dropdown-item" (click)="onItem('Preferences')">Preferences</div>
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Preferences')">Preferences</div>
+        </div>
+    </div>
+
+    <div class="ut-menu" [class.active]="openMenu === 'Windows Manager'" (click)="toggleMenu('Windows Manager', $event)"
+        (mouseenter)="hoverMenu('Windows Manager', $event)" (mouseout)="sendMessage(null)">
+        Windows Manager
+        <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Windows Manager'">
+            <div *ngIf="windowsManagerItems?.length === 0"
+                class="ut-dropdown-item disabled">
+                No opened windows
+            </div>
+            <div *ngIf="windowsManagerItems?.length !== 0"
+                class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onCloseAllWindows()">
+                Close all windows
+            </div>
+            <div *ngIf="windowsManagerItems?.length !== 0"
+                class="ut-dropdown-item disabled" style="text-align: center;" (mouseenter)="playHover()" (click)="onCloseAllWindows()">
+                ――――――――――
+            </div>
+            <div *ngFor="let w of windowsManagerItems"
+                class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onWindow(w.id)">
+                {{w.ref.instance.windowName}}: {{w.id}}
+            </div>
         </div>
     </div>
 
     <div class="ut-menu ut-menu-right" [class.active]="openMenu === 'Account'" (click)="toggleMenu('Account', $event)"
-        (mouseenter)="hoverMenu('Account', $event)">
+        (mouseenter)="hoverMenu('Account', $event)" (mouseout)="sendMessage(null)">
         Account: {{email}} ({{role}})
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Account'">
-            <div class="ut-dropdown-item disabled" (click)="onItem('About')">About</div>
-            <div class="ut-dropdown-item" (click)="onItem('Logout')">Logout</div>
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('About')">About</div>
+            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Logout')">Logout</div>
         </div>
     </div>
 </nav>

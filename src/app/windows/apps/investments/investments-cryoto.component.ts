@@ -3,10 +3,10 @@ import { Component } from "@angular/core";
 
 @Component({
     standalone: true,
-    selector: 'app-investment-total',
+    selector: 'app-investment-crypto',
     imports: [CommonModule],
-    templateUrl: './investments-total.component.html',
+    templateUrl: './investments-crypto.component.html',
     styleUrl: './investments-commons.component.css',
-}) export class InvestmentsTotalComponent {
+}) export class InvestmentsCryptoComponent {
 
 }

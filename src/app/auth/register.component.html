@@ -1,13 +1,28 @@
-<form (ngSubmit)="onRegister()">
-    <input [(ngModel)]="email" name="email" placeholder="Email" required>
-    <input [(ngModel)]="password" name="password" placeholder="Hasło" type="password" required>
-    <button class="ut99-button" type="submit">Zarejestruj</button>
+<form class="login-form" (ngSubmit)="onRegister()">
+    <h1>Register in the Application</h1>
+
+    <div class="form-group">
+        <label for="email">Email: </label>
+        <input [(ngModel)]="email" name="email" placeholder="Email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password: </label>
+        <input [(ngModel)]="password" name="password" placeholder="Password" type="password" required>
+    </div>
+
+    <div class="form-group">
+        <label for="password2">Repeat password: </label>
+        <input [(ngModel)]="password2" name="password2" placeholder="Password" type="password" required>
+    </div>
+
+    <div class="error-msg">
+        {{msg}}
+    </div>
+    <div class="error-msg" style="color: darkgreen" *ngIf="successMsg">
+        {{successMsg}}
+    </div>
+
+    <button class="ut99-button" type="submit">Register</button>
+
 </form>
-
-<div style="color: darkred" *ngIf="msg">
-    {{msg}}
-</div>
-
-<div style="color: darkgreen" *ngIf="successMsg">
-    {{successMsg}}
-</div>

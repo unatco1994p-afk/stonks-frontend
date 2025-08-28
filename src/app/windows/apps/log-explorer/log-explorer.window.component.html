@@ -1,0 +1,10 @@
+<ng-template appWindowTab="List" #tabList="appWindowTab">
+    <app-log-explorer></app-log-explorer>
+</ng-template>
+<ng-template appWindowTab="Add" #tabAdd="appWindowTab">
+    <app-log-explorer-new></app-log-explorer-new>
+</ng-template>
+
+<app-window [zIndex]="zIndex"
+    [x]="x" [y]="y" [title]="'Log Explorer'" [tabs]="[tabList, tabAdd]" (closed)="close.emit()" (focus)="focus.emit()">
+</app-window>

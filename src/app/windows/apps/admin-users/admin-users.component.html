@@ -9,7 +9,7 @@
     <tbody>
     
     <tr *ngFor="let user of users">
-        <td>{{user.email}}</td><td>{{user.roles}}</td><td>{{user.createdAt._seconds*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{user.email}}</td><td>{{user.roles}}</td><td>{{user.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
     </tr>
     </tbody>
 </table>

@@ -1,95 +1,28 @@
-import { Component, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
-import { WindowComponent } from '../windows/window.component';
+import { AfterViewInit, Component, inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { UtMenubarComponent } from './menubar/utmenubar.component';
-import { Router } from '@angular/router';
-import { AdminUsersComponent } from './admin-users/admin-users.component';
-import { LogExplorerComponent } from './log-explorer/log-explorer.component';
-import { WindowTabDirective } from '../windows/window-tab.directive.component';
-import { LogExplorerNewComponent } from './log-explorer/log-explorer-new.component';
-import { InvestmentsBondsComponent } from './investments/investments-bonds.component';
-import { InvestmentsDepoComponent } from './investments/investments-depo.component';
-import { InvestmentsStockComponent } from './investments/investments-stock.component';
-import { InvestmentsTotalComponent } from './investments/investments-total.component';
-
-interface WindowData {
-    id: number;
-    title: string;
-    x: number;
-    y: number;
-}
+import { WindowRegisterService } from '../windows/window-register.service';
+import { StatusBarComponent } from './statusbar/statusbar.component';
 
 @Component({
     standalone: true,
     selector: 'app-dashboard',
-    imports: [NgFor, NgIf, WindowComponent, UtMenubarComponent, AdminUsersComponent, LogExplorerComponent, LogExplorerNewComponent, WindowTabDirective,
-        InvestmentsBondsComponent, InvestmentsDepoComponent, InvestmentsStockComponent, InvestmentsTotalComponent
-    ],
+    imports: [CommonModule, UtMenubarComponent, StatusBarComponent],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
-    windows: WindowData[] = [];
-    usersWindow: WindowData | null = null;
-    logExplorerWindow: WindowData | null = null;
-    investmentsWindow: WindowData | null = null;
+export class DashboardComponent implements AfterViewInit, OnInit{
+    private windowRegister = inject(WindowRegisterService);
 
-    private nextId = 1;
+    @ViewChild('windowContainer', { read: ViewContainerRef }) windowContainer!: ViewContainerRef;
 
-    logs: any[] = [];
+    useDesktop = false; // TODO: will be fixed
 
-    private router = inject(Router);
-
-    addWindow() {
-        this.windows.push({
-            id: this.nextId++,
-            title: 'Okno ' + this.nextId,
-            x: 100 + Math.random() * 300,
-            y: 100 + Math.random() * 200
-        });
+    ngOnInit(): void {
+        this.useDesktop = localStorage.getItem('desktop') === 'true';
     }
 
-    closeWindow(id: number) {
-        this.windows = this.windows.filter(w => w.id !== id);
-    }
-
-    closeUsersWindow() {
-        this.usersWindow = null;
-    }
-
-    closeLogExplorerWindow() {
-        this.logExplorerWindow = null;
-    }
-
-    closeInvestmentsWindow() {
-        this.investmentsWindow = null;
-    }
-
-    menuItemSelected(item: string) {
-        if (item === 'Logout') {
-            localStorage.removeItem('token');
-            this.router.navigate(['/']);
-        } else if (item === 'Users') {
-            this.usersWindow = {
-                id: this.nextId++,
-                title: 'Users',
-                x: 100 + Math.random() * 300,
-                y: 100 + Math.random() * 200
-            }
-        } else if (item === 'Log Explorer') {
-            this.logExplorerWindow = {
-                id: this.nextId++,
-                title: 'Log Explorer',
-                x: 100 + Math.random() * 300,
-                y: 100 + Math.random() * 200
-            }
-        } else if (item === 'Investments') {
-            this.investmentsWindow = {
-                id: this.nextId++,
-                title: 'Investments',
-                x: 100 + Math.random() * 300,
-                y: 100 + Math.random() * 200
-            }
-        }
+    ngAfterViewInit(): void {
+        this.windowRegister.setViewContainer(this.windowContainer);
     }
 }

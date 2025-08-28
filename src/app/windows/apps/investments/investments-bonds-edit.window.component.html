@@ -1,0 +1,114 @@
+<ng-template #bottomButtons>
+  <button type="button" style="margin-left: 4px;" (click)="close.emit()">Close</button>
+  <button type="button" (click)="save()">Save Bond</button>
+</ng-template>
+
+<ng-template appWindowTab="Main" #tabMain="appWindowTab">
+  <form [formGroup]="bondForm" class="form">
+    <div class="form-grid">
+
+      <!-- Name -->
+      <label for="name">Name:</label>
+      <input id="name" formControlName="name" type="text" />
+      <div class="error">
+        <ng-container *ngIf="bondForm.get('name')?.touched && bondForm.get('name')?.invalid" >
+          Name is required
+        </ng-container>
+      </div>
+
+      <!-- Spot -->
+      <label for="spot">Spot:</label>
+      <input id="spot" formControlName="spot" type="text" />
+      <div class="error">
+        <ng-container *ngIf="bondForm.get('spot')?.touched && bondForm.get('spot')?.invalid">
+          Spot is required
+        </ng-container>
+      </div>
+
+      <!-- Description (pełna szerokość) -->
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <div></div>
+      <!-- style="grid-column: 2 / span 2;"-->
+
+      <!-- Volume -->
+      <label for="volume">Volume:</label>
+      <input id="volume" formControlName="volume" type="number" />
+      <div class="error">
+        <ng-container *ngIf="bondForm.get('volume')?.touched && bondForm.get('volume')?.invalid">
+          Volume must be greater than 0
+        </ng-container>  
+      </div>
+
+      <!-- Price -->
+      <label for="price">Price:</label>
+      <input id="price" formControlName="price" type="number" step="0.01" />
+      <div class="error">
+        <ng-container *ngIf="bondForm.get('price')?.touched && bondForm.get('price')?.invalid">
+          Price must be non-negative
+        </ng-container>  
+      </div>
+
+      <!-- Currency -->
+      <label for="currency">Currency:</label>
+      <input id="currency" formControlName="currency" type="text"/>
+      <div class="error">
+        <ng-container *ngIf="bondForm.get('currency')?.touched && bondForm.get('currency')?.invalid">
+          Must be PLN, USD or EUR
+        </ng-container>  
+      </div>
+
+      <!-- Bond Ticker -->
+      <label for="bondTicker">Bond Ticker:</label>
+      <input id="bondTicker" formControlName="bondTicker" type="text" />
+      <div class="error">
+        <ng-container *ngIf="bondForm.get('bondTicker')?.touched && bondForm.get('bondTicker')?.invalid">  
+          Bond Ticker is required
+        </ng-container>
+      </div>
+
+      <!-- Interest -->
+      <label for="interest">Interest (%):</label>
+      <input id="interest" formControlName="interest" type="number" step="0.01" />
+      <div class="error">
+        <ng-container *ngIf="bondForm.get('interest')?.touched && bondForm.get('interest')?.invalid">
+          Interest must be non-negative
+        </ng-container>
+      </div>
+
+      <!-- Interests List (pełna szerokość) -->
+      <label for="interestsList">Interests List (comma separated):</label>
+      <input id="interestsList" type="text" formControlName="interestsList" pattern="^\s*\d+(\s*,\s*\d+)*\s*$"
+             placeholder="e.g. 10, 20, 30"/>
+      <div class="error">
+        <ng-container *ngIf="bondForm.get('interestsList')?.touched && bondForm.get('interestsList')?.invalid" >
+          Enter numbers separated by commas (e.g. 10, 20, 30)
+        </ng-container>
+      </div>
+
+      <!-- Start Date -->
+      <label for="startDate">Start Date:</label>
+      <input id="startDate" formControlName="startDate" type="date" />
+      <div class="error">
+        <ng-container *ngIf="bondForm.get('startDate')?.touched && bondForm.get('startDate')?.invalid">
+          Start Date is required
+        </ng-container>
+      </div>
+
+      <!-- Due Date -->
+      <label for="dueDate">Due Date:</label>
+      <input id="dueDate" formControlName="dueDate" type="date" />
+      <div class="error">
+        <ng-container *ngIf="bondForm.get('dueDate')?.touched && bondForm.get('dueDate')?.invalid">
+          Due Date is required
+        </ng-container>
+      </div>
+
+    </div>
+  </form>
+</ng-template>
+
+<app-window [zIndex]="zIndex" [width]="650"
+            [x]="x" [y]="y" [title]="'Bond Details'" [tabs]="[tabMain]" [statusBar]="bottomButtons"
+            (closed)="close.emit()" (focus)="focus.emit()">
+</app-window>

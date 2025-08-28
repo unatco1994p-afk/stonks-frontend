@@ -1,0 +1,12 @@
+<ng-template appWindowTab="Main" #tabMain="appWindowTab">
+    <p>{{questionText}}</p>
+</ng-template>
+
+<ng-template #bottomButtons>
+    <button type="button" style="margin-left: 4px;" (click)="close.emit('no')">No</button>
+    <button type="button"(click)="close.emit('yes')">Yes</button>
+</ng-template>
+
+<app-window [zIndex]="zIndex"
+ [x]="x" [y]="y" [width]="200" [title]="'About'" [tabs]="[tabMain]" [statusBar]="bottomButtons" (closed)="close.emit('no')" (focus)="focus.emit()">
+</app-window>

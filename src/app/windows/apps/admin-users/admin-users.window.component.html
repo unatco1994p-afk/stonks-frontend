@@ -1,0 +1,10 @@
+<ng-template appWindowTab="Main" #tabMain="appWindowTab">
+    <app-admin-users></app-admin-users>
+</ng-template>
+
+<app-window [zIndex]="zIndex"
+    [x]="x" [y]="y" [title]="'Users'" [tabs]="[tabMain]" (closed)="close.emit()" (focus)="focus.emit()">
+    <ng-template appWindowTab="Main">
+        <app-admin-users></app-admin-users>
+    </ng-template>
+</app-window>
