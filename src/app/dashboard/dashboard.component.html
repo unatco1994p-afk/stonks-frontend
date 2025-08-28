@@ -1,10 +1,10 @@
-<ut-menubar (itemSelected)="menuItemSelected($event)"></ut-menubar>
+<ut-menubar></ut-menubar>
 
-<div class="center">
+<div *ngIf="useDesktop" class="center">
     <div class="infinity">
     </div>
 </div>
 
 <div #windowContainer></div>
 
-<!-- TODO: statusbar -->
+<app-status-bar></app-status-bar>

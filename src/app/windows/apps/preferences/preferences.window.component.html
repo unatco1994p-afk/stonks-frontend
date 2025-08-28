@@ -1,0 +1,16 @@
+<ng-template appWindowTab="Main" #tabMain="appWindowTab">
+    <label>Use desktop</label>
+    <input
+        type="checkbox"
+        [checked]="useDesktop"
+        (change)="useDesktop = !useDesktop"/>
+</ng-template>
+
+<ng-template #bottomButtons>
+    <button type="button" style="margin-left: 4px;" (click)="close.emit()">Close</button>
+    <button type="button"(click)="save()">Save</button>
+</ng-template>
+
+<app-window [zIndex]="zIndex"
+ [x]="x" [y]="y" [width]="400" [title]="'Preferences'" [tabs]="[tabMain]" [statusBar]="bottomButtons" (closed)="close.emit()" (focus)="focus.emit()">
+</app-window>

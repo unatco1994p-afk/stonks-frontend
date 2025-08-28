@@ -9,11 +9,13 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     selector: 'app-register',
     imports: [FormsModule, CommonModule],
-    templateUrl: './register.component.html'
+    templateUrl: './register.component.html',
+    styleUrl: './common.component.css'
 })
 export class RegisterComponent {
     email = '';
     password = '';
+    password2 = '';
 
     msg = '';
 
@@ -22,8 +24,17 @@ export class RegisterComponent {
     constructor(private auth: AuthService, private router: Router) { }
 
     onRegister() {
+        if (this.password !== this.password2) {
+            this.msg = 'Passwords are not the same';
+            return;
+        }
+
         this.auth.register(this.email, this.password).pipe(
             catchError((err) => {
+                if (typeof err.error?.error === 'string') {
+                    this.msg = err.error?.error;
+                    return of(null);
+                }
                 this.msg = err?.error?.errors[0]?.msg || 'Register error';
                 this.successMsg = '';
                 return of(null);
@@ -33,7 +44,6 @@ export class RegisterComponent {
                 this.successMsg = 'Registered';
                 this.msg = '';
             }
-            // this.router.navigate(['/login']);
         });
     }
 }

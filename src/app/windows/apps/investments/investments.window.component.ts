@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { AbstractWindow } from "../../windows/abstract-window.component";
-import { WindowComponent } from "../../windows/window.component";
-import { WindowTabDirective } from "../../windows/window-tab.directive.component";
+import { AbstractWindow } from "../../abstract-window.component";
+import { WindowComponent } from "../../window.component";
+import { WindowTabDirective } from "../../window-tab.directive.component";
 import { InvestmentsBondsComponent } from "./investments-bonds.component";
 import { InvestmentsCryptoComponent } from "./investments-cryoto.component";
 import { InvestmentsDepoComponent } from "./investments-depo.component";

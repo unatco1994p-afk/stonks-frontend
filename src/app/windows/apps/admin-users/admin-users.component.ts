@@ -1,11 +1,11 @@
 import { NgFor, NgIf, DatePipe } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
-import { ApiService } from "../../services/api.service";
+import { ApiService } from "../../../services/api.service";
 
 interface User {
     email: string,
     roles: string[],
-    createdAt: {_seconds: number, _nanoseconds: number},
+    createdAt: string,
 }
 
 @Component({

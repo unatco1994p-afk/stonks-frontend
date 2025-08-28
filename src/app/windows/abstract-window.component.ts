@@ -6,6 +6,6 @@ export class AbstractWindow {
     @Input() x = 20 + Math.random() * 140;
     @Input() y = 20 + Math.random() * 100;
     @Input() zIndex = 100;
-    @Output() close = new EventEmitter<void>();
+    @Output() close = new EventEmitter<any>();
     @Output() focus = new EventEmitter<void>();
 }

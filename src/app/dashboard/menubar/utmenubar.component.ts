@@ -1,8 +1,14 @@
-// ut-menubar.component.ts
-import { Component, EventEmitter, HostListener, inject, OnInit, Output } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth/auth.service';
 import { WindowEntry, WindowRegisterService } from '../../windows/window-register.service';
+import { StatusService } from '../statusbar/status.service';
+import { Router } from '@angular/router';
+import { PreferencesWindowComponent } from '../../windows/apps/preferences/preferences.window.component';
+import { AboutWindowComponent } from '../../windows/apps/about/about.window.component';
+import { InvestmentsWindowComponent } from '../../windows/apps/investments/investments.window.component';
+import { LogExplorerWindowComponent } from '../../windows/apps/log-explorer/log-explorer.window.component';
+import { AdminUsersWindowComponent } from '../../windows/apps/admin-users/admin-users.window.component';
 
 @Component({
     selector: 'ut-menubar',
@@ -13,14 +19,13 @@ import { WindowEntry, WindowRegisterService } from '../../windows/window-registe
 })
 export class UtMenubarComponent implements OnInit {
     private windowsRegister = inject(WindowRegisterService);
-
+    private statusService = inject(StatusService);
     private authService = inject(AuthService);
+    private router = inject(Router);
 
     private hoverSound = new Audio('assets/sounds/hover.wav');
     private menuSound = new Audio('assets/sounds/menu.wav');
     private windowSound = new Audio('assets/sounds/window.wav');
-
-    @Output() itemSelected = new EventEmitter<string>();
 
     openMenu: string | null = null;
 
@@ -60,19 +65,37 @@ export class UtMenubarComponent implements OnInit {
         if (this.openMenu) {
             this.playMenu();
         }
+
+        this.sendMessage('Click to see ' + menu + ' menu.');
     }
 
     onItem(item: string) {
-        // tu możesz podłączyć routing, emitować event, itp.
         console.log('Menu item clicked:', item);
         this.openMenu = null;
 
-        this.itemSelected.emit(item);
+        this.runApp(item);
 
         this.menuSound.muted = true;
         setTimeout(() => {
             this.menuSound.muted = false;
         }, 350);
+    }
+
+    runApp(item: string) {
+        if (item === 'Logout') {
+            localStorage.removeItem('token');
+            this.router.navigate(['/']);
+        } else if (item === 'Users') {
+            this.windowsRegister.registerWindow(AdminUsersWindowComponent);
+        } else if (item === 'Log Explorer') {
+            this.windowsRegister.registerWindow(LogExplorerWindowComponent);
+        } else if (item === 'Investments') {
+            this.windowsRegister.registerWindow(InvestmentsWindowComponent, false); // TODO: fix singletons
+        } else if (item === 'About') {
+            this.windowsRegister.registerWindow(AboutWindowComponent);
+        } else if (item === 'Preferences') {
+            this.windowsRegister.registerWindow(PreferencesWindowComponent);
+        }
     }
 
     onWindow(winId: number) {
@@ -88,6 +111,10 @@ export class UtMenubarComponent implements OnInit {
 
             this.playWindow();
         }
+    }
+
+    sendMessage(message: string | null) {
+        this.statusService.setMessage(message);
     }
 
     onCloseAllWindows() {

@@ -10,6 +10,7 @@ import { catchError, of } from 'rxjs';
     selector: 'app-login',
     imports: [FormsModule, CommonModule],
     templateUrl: './login.component.html',
+    styleUrl: './common.component.css'
 })
 export class LoginComponent {
     email = '';
@@ -22,6 +23,10 @@ export class LoginComponent {
     onLogin() {
         this.auth.login(this.email, this.password).pipe(
             catchError((err) => {
+                if (typeof err.error?.error === 'string') {
+                    this.msg = err.error?.error;
+                    return of(null);
+                }
                 this.msg = err?.error?.errors[0]?.msg || 'Login error';
                 return of(null);
             })

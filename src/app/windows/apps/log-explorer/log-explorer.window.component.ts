@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { AbstractWindow } from "../../windows/abstract-window.component";
-import { WindowComponent } from "../../windows/window.component";
-import { WindowTabDirective } from "../../windows/window-tab.directive.component";
+import { AbstractWindow } from "../../abstract-window.component";
+import { WindowComponent } from "../../window.component";
+import { WindowTabDirective } from "../../window-tab.directive.component";
 import { LogExplorerComponent } from "./log-explorer.component";
 import { LogExplorerNewComponent } from "./log-explorer-new.component";
 

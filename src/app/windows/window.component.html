@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <div class="ut99-tabs">
+    <div *ngIf="tabs.length > 1" class="ut99-tabs">
         <div *ngFor="let tab of tabs; let i = index" class="ut99-tab" [class.active]="i === activeIndex"
             (click)="setActive(i)">
             {{ tab.title }}
@@ -20,7 +20,6 @@
     </div>
 
     <div class="ut99-status-bar" style="display: flex; flex-direction: row-reverse;">
-        <!-- TODO, something in status bar -->
         <ng-container *ngIf="statusBar">
             <ng-container *ngTemplateOutlet="statusBar"></ng-container>
         </ng-container>

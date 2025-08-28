@@ -34,11 +34,13 @@ export interface Bond {
     description?: string,
     volume: number,
     price: number,
+    currency: string,
     bondTicker: string,
     interest: number,
     interestsList?: string,
     startDate: any,
-    dueDate: any
+    dueDate: any,
+    currentValue: number
 }
 
 export interface Stock {

@@ -1,13 +1,13 @@
 import { CommonModule, DatePipe } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
 
-import { InvestmentsService } from "../../services/investments.service";
+import { InvestmentsService } from "../../../services/investments.service";
 import { FormsModule } from "@angular/forms";
 
 @Component({
     standalone: true,
     selector: 'app-investment-total',
-    imports: [CommonModule, DatePipe, FormsModule],
+    imports: [CommonModule, FormsModule],
     templateUrl: './investments-total.component.html',
     styleUrl: './investments-commons.component.css',
 }) export class InvestmentsTotalComponent implements OnInit {

@@ -32,7 +32,7 @@ export class WindowComponent implements AfterViewInit {
 
     // @ContentChildren(WindowTabDirective, { descendants: true }) tabs!: QueryList<WindowTabDirective>;
 
-    @Output() closed = new EventEmitter<void>();
+    @Output() closed = new EventEmitter<any>();
 
     @Output() focus = new EventEmitter<void>();
 

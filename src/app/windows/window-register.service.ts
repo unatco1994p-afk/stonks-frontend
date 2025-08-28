@@ -23,17 +23,27 @@ export class WindowRegisterService {
 
     private viewContainer!: ViewContainerRef;
 
+    private mouseX = window.innerWidth / 2;
+    private mouseY = window.innerHeight / 2;
+
+    constructor() {
+        window.addEventListener('mousemove', (e: MouseEvent) => {
+            this.mouseX = e.clientX;
+            this.mouseY = e.clientY;
+        });
+    }
+
     setViewContainer(viewContainer: ViewContainerRef) {
         this.viewContainer = viewContainer;
     }
 
-    registerWindow(windowType: Type<AbstractWindow>, singleton: boolean = false, inputs: {[key: string]: any} = {}) {     
+    registerWindow(windowType: Type<AbstractWindow>, singleton: boolean = false, inputs: {[key: string]: any} = {}): WindowEntry {     
         if (singleton) {
             const existing = this.windows.find(w => w.ref.instance instanceof windowType);
             if (existing) {
                 this.setActive(existing);
                 this.playWindow();
-                return;
+                return existing;
             }
         }
         
@@ -55,6 +65,13 @@ export class WindowRegisterService {
             ref.setInput(key, value);
         });
 
+        let x = this.mouseX;
+        if (x > window.innerWidth * 0.6) {
+            x = window.innerWidth * 0.5;
+        }
+        ref.setInput('x', x);
+        ref.setInput('y', this.mouseY);
+
         ref.instance.close.subscribe(() => this.closeWindow(entry));
         ref.instance.focus.subscribe(() => {
             console.log('setActive');
@@ -64,6 +81,8 @@ export class WindowRegisterService {
         this.emitChanges();
 
         this.playWindow();
+
+        return entry;
     }
 
     setActive(entry: WindowEntry) {
