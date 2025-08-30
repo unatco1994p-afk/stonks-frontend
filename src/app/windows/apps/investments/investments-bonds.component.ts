@@ -72,6 +72,11 @@ export interface TotalBond {
     addBond() {
         const ref = this.windowRegister.registerWindow(InvestmentsBondsEditWindowComponent);
 
-        ref.ref.instance.close.subscribe(() => this.refresh());
+        ref.ref.instance.close.subscribe(another => {
+            this.refresh();
+            if (another) {
+                this.addBond();
+            }
+        });
     }
 }

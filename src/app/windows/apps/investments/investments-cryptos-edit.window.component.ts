@@ -33,17 +33,17 @@ export class InvestmentsCryptosEditWindowComponent extends AbstractWindow implem
             description: [this.crypto?.description ?? ''],
             quantity: [this.crypto?.quantity ?? 0, [Validators.required, Validators.min(0.0001)]],
             priceAtStartDate: [this.crypto?.priceAtStartDate ?? 0],
-            priceRelativeToCurrency: [this.crypto?.priceRelativeToCurrency ?? ''],
+            priceRelativeToCurrency: [this.crypto?.priceRelativeToCurrency ?? 'PLN'],
             cryptoSymbol: [this.crypto?.cryptoSymbol ?? '', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
             stakingInterest: [this.crypto?.stakingInterest ?? 0],
             startDate: [
-                this.crypto?.startDate ? new Date(this.crypto.startDate).toISOString().substring(0, 10) : '',
+                this.crypto?.startDate ? new Date(this.crypto.startDate).toISOString().substring(0, 10) : new Date().toISOString().substring(0, 10),
                 Validators.required
             ],
         });
     }
 
-    save() {
+    save(another = false) {
         this.cryptoForm.markAllAsTouched();
         if (!this.cryptoForm.valid) return;
 
@@ -60,7 +60,7 @@ export class InvestmentsCryptosEditWindowComponent extends AbstractWindow implem
         } else {
             this.service.addCrypto(preparedCrypto).subscribe(data => {
                 this.statusService.setMessage(`Crypto ${data.name} created.`);
-                this.close.emit();
+                this.close.emit(another);
             });
         }
     }

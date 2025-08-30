@@ -1,5 +1,6 @@
 <ng-template #bottomButtons>
   <button type="button" style="margin-left: 4px;" (click)="close.emit()">Close</button>
+  <button *ngIf="!id" type="button" style="margin-left: 4px;" (click)="save(true)">Save Crypto and Add Another</button>
   <button type="button" (click)="save()">Save Crypto</button>
 </ng-template>
 
@@ -43,7 +44,8 @@
       <label for="priceAtStartDate">Price at Start:</label>
       <input id="priceAtStartDate" formControlName="priceAtStartDate" type="number" step="0.01" />
       <div class="error">
-        <ng-container *ngIf="cryptoForm.get('priceAtStartDate')?.touched && cryptoForm.get('priceAtStartDate')?.invalid">
+        <ng-container
+          *ngIf="cryptoForm.get('priceAtStartDate')?.touched && cryptoForm.get('priceAtStartDate')?.invalid">
           Price must be non-negative
         </ng-container>
       </div>
@@ -52,7 +54,8 @@
       <label for="priceRelativeToCurrency">Currency:</label>
       <input id="priceRelativeToCurrency" formControlName="priceRelativeToCurrency" type="text" />
       <div class="error">
-        <ng-container *ngIf="cryptoForm.get('priceRelativeToCurrency')?.touched && cryptoForm.get('priceRelativeToCurrency')?.invalid">
+        <ng-container
+          *ngIf="cryptoForm.get('priceRelativeToCurrency')?.touched && cryptoForm.get('priceRelativeToCurrency')?.invalid">
           Must be PLN, USD or EUR
         </ng-container>
       </div>
@@ -69,6 +72,11 @@
       <!-- Staking Interest -->
       <label for="stakingInterest">Staking Interest (%):</label>
       <input id="stakingInterest" formControlName="stakingInterest" type="number" step="0.01" />
+      <div class="error">
+        <ng-container *ngIf="cryptoForm.get('stakingInterest')?.touched && cryptoForm.get('stakingInterest')?.invalid">
+          Staking Interests invalid
+        </ng-container>
+      </div>
 
       <!-- Start Date -->
       <label for="startDate">Start Date:</label>
@@ -83,7 +91,6 @@
   </form>
 </ng-template>
 
-<app-window [zIndex]="zIndex" [width]="650"
-            [x]="x" [y]="y" [title]="'Crypto Details'" [tabs]="[tabMain]" [statusBar]="bottomButtons"
-            (closed)="close.emit()" (focus)="focus.emit()">
+<app-window [zIndex]="zIndex" [width]="650" [x]="x" [y]="y" [title]="'Crypto Details'" [tabs]="[tabMain]"
+  [statusBar]="bottomButtons" (closed)="close.emit()" (focus)="focus.emit()">
 </app-window>

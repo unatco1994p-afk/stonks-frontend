@@ -33,17 +33,17 @@ export class InvestmentsStocksEditWindowComponent extends AbstractWindow impleme
       description: [this.stock?.description ?? ''],
       volume: [this.stock?.volume ?? 0, [Validators.required, Validators.min(1)]],
       price: [this.stock?.price ?? 0, [Validators.required, Validators.min(0)]],
-      priceRelativeToCurrency: [this.stock?.priceRelativeToCurrency ?? ''],
+      priceRelativeToCurrency: [this.stock?.priceRelativeToCurrency ?? 'PLN'],
       stockTicker: [this.stock?.stockTicker ?? '', Validators.required],
       dividend: [this.stock?.dividend ?? 0, [Validators.min(0)]],
       startDate: [
-        this.stock?.startDate ? new Date(this.stock.startDate).toISOString().substring(0, 10) : '',
+        this.stock?.startDate ? new Date(this.stock.startDate).toISOString().substring(0, 10) : new Date().toISOString().substring(0, 10),
         Validators.required
       ],
     });
   }
 
-  save() {
+  save(another = false) {
     this.stockForm.markAllAsTouched();
     if (!this.stockForm.valid) return;
 
@@ -60,7 +60,7 @@ export class InvestmentsStocksEditWindowComponent extends AbstractWindow impleme
     } else {
       this.service.addStock(preparedStock).subscribe(data => {
         this.statusService.setMessage(`Stock ${data.name} created.`);
-        this.close.emit();
+        this.close.emit(another);
       });
     }
   }
