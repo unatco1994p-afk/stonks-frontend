@@ -68,7 +68,12 @@ interface TotalDeposit {
 
     addDeposit() {
         const ref = this.windowRegister.registerWindow(InvestmentsDepositsEditWindowComponent);
-        ref.ref.instance.close.subscribe(() => this.refresh());
+        ref.ref.instance.close.subscribe(another => {
+            this.refresh();
+            if (another) {
+                this.addDeposit();
+            }
+        });
     }
 
     calcCurrentValue(deposit: Deposit): number {

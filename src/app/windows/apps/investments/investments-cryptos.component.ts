@@ -64,6 +64,11 @@ export class InvestmentsCryptosComponent implements OnInit {
 
     addCrypto() {
         const ref = this.windowRegister.registerWindow(InvestmentsCryptosEditWindowComponent);
-        ref.ref.instance.close.subscribe(() => this.refresh());
+        ref.ref.instance.close.subscribe(another => {
+            this.refresh();
+            if (another) {
+                this.addCrypto();
+            }
+        });
     }
 }

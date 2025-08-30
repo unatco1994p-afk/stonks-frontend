@@ -66,11 +66,15 @@ export class WindowRegisterService {
         });
 
         let x = this.mouseX;
-        if (x > window.innerWidth * 0.6) {
-            x = window.innerWidth * 0.5;
+        let y = this.mouseY;
+        if (x > window.innerWidth * 0.5) {
+            x = window.innerWidth * 0.45;
+        }
+        if (y > window.innerHeight * 0.5) {
+            y = window.innerHeight * 0.35;
         }
         ref.setInput('x', x);
-        ref.setInput('y', this.mouseY);
+        ref.setInput('y', y);
 
         ref.instance.close.subscribe(() => this.closeWindow(entry));
         ref.instance.focus.subscribe(() => {

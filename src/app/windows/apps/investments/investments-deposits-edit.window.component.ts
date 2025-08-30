@@ -32,15 +32,15 @@ export class InvestmentsDepositsEditWindowComponent extends AbstractWindow imple
             spot: [this.deposit?.spot ?? '', Validators.required],
             description: [this.deposit?.description ?? ''],
             value: [this.deposit?.value ?? 0, [Validators.required, Validators.min(0.01)]],
-            currency: [this.deposit?.currency ?? '', Validators.pattern(/\b(PLN|EUR|USD)\b(?!\s)/)],
+            currency: [this.deposit?.currency ?? 'PLN', Validators.pattern(/\b(PLN|EUR|USD)\b(?!\s)/)],
             interest: [this.deposit?.interest ?? 0],
             startDate: [
-                this.deposit?.startDate ? new Date(this.deposit.startDate).toISOString().substring(0, 10) : ''
+                this.deposit?.startDate ? new Date(this.deposit.startDate).toISOString().substring(0, 10) : new Date().toISOString().substring(0, 10)
             ]
         });
     }
 
-    save() {
+    save(another = false) {
         this.depositForm.markAllAsTouched();
         if (!this.depositForm.valid) return;
 
@@ -57,7 +57,7 @@ export class InvestmentsDepositsEditWindowComponent extends AbstractWindow imple
         } else {
             this.service.addDeposit(preparedDeposit).subscribe(data => {
                 this.statusService.setMessage(`Deposit ${data.name} created.`);
-                this.close.emit();
+                this.close.emit(another);
             });
         }
     }

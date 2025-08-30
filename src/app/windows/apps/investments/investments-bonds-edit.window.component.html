@@ -1,5 +1,6 @@
 <ng-template #bottomButtons>
   <button type="button" style="margin-left: 4px;" (click)="close.emit()">Close</button>
+  <button *ngIf="!id" type="button" style="margin-left: 4px;" (click)="save(true)">Save Bond and Add Another</button>
   <button type="button" (click)="save()">Save Bond</button>
 </ng-template>
 

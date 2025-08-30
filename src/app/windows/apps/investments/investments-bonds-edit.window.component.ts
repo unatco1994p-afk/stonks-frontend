@@ -37,22 +37,22 @@ export class InvestmentsBondsEditWindowComponent extends AbstractWindow implemen
             description: [this.bond?.description ?? ''],
             volume: [this.bond?.volume ?? 0, [Validators.required, Validators.min(1)]],
             price: [this.bond?.price ?? 0, [Validators.required, Validators.min(0)]],
-            currency: [this.bond?.currency ?? '', Validators.pattern(/\b(PLN|EUR|USD)\b(?!\s)/)],
+            currency: [this.bond?.currency ?? 'PLN', Validators.pattern(/\b(PLN|EUR|USD)\b(?!\s)/)],
             bondTicker: [this.bond?.bondTicker ?? '', Validators.required],
             interest: [this.bond?.interest ?? 0, [Validators.required, Validators.min(0)]],
             interestsList: [this.bond?.interestsList ?? ''],
             startDate: [
-                this.bond?.startDate ? new Date(this.bond.startDate).toISOString().substring(0, 10) : '',
+                this.bond?.startDate ? new Date(this.bond.startDate).toISOString().substring(0, 10) : new Date().toISOString().substring(0, 10),
                 Validators.required
             ],
             dueDate: [
-                this.bond?.dueDate ? new Date(this.bond.dueDate).toISOString().substring(0, 10) : '',
+                this.bond?.dueDate ? new Date(this.bond.dueDate).toISOString().substring(0, 10) : new Date().toISOString().substring(0, 10),
                 Validators.required
             ],
         });
     }
 
-    save() {
+    save(another = false) {
         this.bondForm.markAllAsTouched();
 
         if (!this.bondForm.valid) return;
@@ -75,7 +75,7 @@ export class InvestmentsBondsEditWindowComponent extends AbstractWindow implemen
             console.log("Creating new bond:", preparedBond);
             this.service.addBond(preparedBond).subscribe(data => {
                 this.statusService.setMessage(`Bond ${data.name} created.`)
-                this.close.emit();
+                this.close.emit(another);
             });
         }
     }
