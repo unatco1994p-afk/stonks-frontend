@@ -44,13 +44,17 @@
                 </td>
             </tr>
 
-            <tr *ngIf="totalBond">
-                <td>{{totalBond.name}}</td>
+      <tr>
+        <td colspan="15" class="ut99-table-separator"></td>
+      </tr>
+
+            <tr *ngFor="let totalBond of totalBonds">
+                <td>Total</td>
                 <td></td>
                 <td></td>
-                <td class="number">{{totalBond.volume}}</td>
                 <td></td>
                 <td></td>
+                <td>{{totalBond.currency}}</td>
                 <td></td>
                 <td></td>
                 <td></td>

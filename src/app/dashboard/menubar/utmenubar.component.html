@@ -4,8 +4,8 @@
         Administration
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Administration'">
             <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (mouseenter)="playHover()" (click)="onItem('Users')">Users</div>
-            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (mouseenter)="playHover()" (click)="onItem('Roles')">Roles</div>
-            <div class="ut-dropdown-item" [class.disabled]="!isAdmin" (mouseenter)="playHover()" (click)="onItem('Permissions')">Permissions</div>
+            <div class="ut-dropdown-item disabled" (mouseenter)="playHover()" (click)="onItem('Roles')">Roles</div>
+            <div class="ut-dropdown-item disabled" (mouseenter)="playHover()" (click)="onItem('Permissions')">Permissions</div>
         </div>
     </div>
 
@@ -14,7 +14,16 @@
         Stonks
         <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Stonks'">
             <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Investments')">Investments</div>
-            <div class="ut-dropdown-item" (mouseenter)="playHover()" (click)="onItem('Dashboard')">Dashboard</div>
+            <div class="ut-dropdown-item disabled" (mouseenter)="playHover()" (click)="onItem('Dashboard')">Dashboard</div>
+        </div>
+    </div>
+
+    <div *ngIf="isAdmin" class="ut-menu" [class.active]="openMenu === 'Library'" (click)="toggleMenu('Library', $event)"
+        (mouseenter)="hoverMenu('Library', $event)" (mouseout)="sendMessage(null)">
+        Library
+        <div class="ut-dropdown" role="menu" *ngIf="openMenu === 'Library'">
+            <div class="ut-dropdown-item disabled" (mouseenter)="playHover()" (click)="onItem('Music')">Music</div>
+            <div class="ut-dropdown-item disabled" (mouseenter)="playHover()" (click)="onItem('Books')">Books</div>
         </div>
     </div>
 

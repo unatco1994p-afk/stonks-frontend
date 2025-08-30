@@ -1,0 +1,63 @@
+<button (click)="refresh()">Refresh</button>
+<button style="margin-left: 4px;" (click)="addStock()">Add stock</button>
+
+<div style="margin-top: 4px;" class="ut99-table-container">
+  <table class="ut99-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Spot</th>
+        <th>Description</th>
+        <th>Volume</th>
+        <th>Price</th>
+        <th>Price Relative Currency</th>
+        <th>Ticker</th>
+        <th>Dividend</th>
+        <th>Start Date</th>
+        <th>Initial Value</th>
+        <th>Current Value</th>
+        <th>Profit</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stock of stocks">
+        <td>{{stock.name}}</td>
+        <td>{{stock.spot}}</td>
+        <td>{{stock.description}}</td>
+        <td class="number">{{stock.volume}}</td>
+        <td class="number">{{stock.price}}</td>
+        <td>{{stock.priceRelativeToCurrency}}</td>
+        <td>{{stock.stockTicker}}</td>
+        <td class="number">{{stock.dividend}}</td>
+        <td>{{stock.startDate | date:'yyyy-MM-dd'}}</td>
+        <td class="number">{{stock.volume*stock.price | number:'1.2-2'}}</td>
+        <td class="number">{{stock.currentValue | number:'1.2-2'}}</td>
+        <td class="green-number">{{stock.currentValue - stock.volume*stock.price | number:'1.2-2'}}</td>
+        <td>
+          <a (click)="editStock(stock)">Edit</a>&nbsp;<a (click)="deleteStock(stock)">Delete</a>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="13" class="ut99-table-separator"></td>
+      </tr>
+
+      <tr *ngIf="totalStock">
+        <td>{{totalStock.name}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="number">{{totalStock.initialValue | number:'1.2-2'}}</td>
+        <td class="number">{{totalStock.currentValue | number:'1.2-2'}}</td>
+        <td class="green-number">{{totalStock.currentValue - totalStock.initialValue | number:'1.2-2'}}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

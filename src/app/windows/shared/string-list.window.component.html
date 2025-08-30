@@ -1,0 +1,17 @@
+<ng-template appWindowTab="Main" #tabMain="appWindowTab">
+    <p>{{questionText}}</p>
+    <div *ngFor="let input of inputs; let i = index; trackBy: trackByIndex">
+        <input style="margin-bottom: 6px;" type="text" [(ngModel)]="inputs[i]" placeholder="Put value {{i + 1}}" />
+    </div>
+
+    <button (click)="addInput()">Add entry</button>
+</ng-template>
+
+<ng-template #bottomButtons>
+    <button type="button" style="margin-left: 4px;" (click)="close.emit('cancel')">Cancel</button>
+    <button type="button"(click)="close.emit(inputs)">Save</button>
+</ng-template>
+
+<app-window [zIndex]="zIndex"
+ [x]="x" [y]="y" [width]="200" [title]="'Edit'" [tabs]="[tabMain]" [statusBar]="bottomButtons" (closed)="close.emit('no')" (focus)="focus.emit()">
+</app-window>

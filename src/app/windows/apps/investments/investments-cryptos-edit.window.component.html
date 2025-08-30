@@ -1,0 +1,89 @@
+<ng-template #bottomButtons>
+  <button type="button" style="margin-left: 4px;" (click)="close.emit()">Close</button>
+  <button type="button" (click)="save()">Save Crypto</button>
+</ng-template>
+
+<ng-template appWindowTab="Main" #tabMain="appWindowTab">
+  <form [formGroup]="cryptoForm" class="form">
+    <div class="form-grid">
+
+      <!-- Name -->
+      <label for="name">Name:</label>
+      <input id="name" formControlName="name" type="text" />
+      <div class="error">
+        <ng-container *ngIf="cryptoForm.get('name')?.touched && cryptoForm.get('name')?.invalid">
+          Name is required
+        </ng-container>
+      </div>
+
+      <!-- Spot -->
+      <label for="spot">Spot:</label>
+      <input id="spot" formControlName="spot" type="text" />
+      <div class="error">
+        <ng-container *ngIf="cryptoForm.get('spot')?.touched && cryptoForm.get('spot')?.invalid">
+          Spot is required
+        </ng-container>
+      </div>
+
+      <!-- Description (pełna szerokość) -->
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <div></div>
+
+      <!-- Quantity -->
+      <label for="quantity">Quantity:</label>
+      <input id="quantity" formControlName="quantity" type="number" step="0.0001" />
+      <div class="error">
+        <ng-container *ngIf="cryptoForm.get('quantity')?.touched && cryptoForm.get('quantity')?.invalid">
+          Quantity must be positive
+        </ng-container>
+      </div>
+
+      <!-- Price at Start -->
+      <label for="priceAtStartDate">Price at Start:</label>
+      <input id="priceAtStartDate" formControlName="priceAtStartDate" type="number" step="0.01" />
+      <div class="error">
+        <ng-container *ngIf="cryptoForm.get('priceAtStartDate')?.touched && cryptoForm.get('priceAtStartDate')?.invalid">
+          Price must be non-negative
+        </ng-container>
+      </div>
+
+      <!-- Currency -->
+      <label for="priceRelativeToCurrency">Currency:</label>
+      <input id="priceRelativeToCurrency" formControlName="priceRelativeToCurrency" type="text" />
+      <div class="error">
+        <ng-container *ngIf="cryptoForm.get('priceRelativeToCurrency')?.touched && cryptoForm.get('priceRelativeToCurrency')?.invalid">
+          Must be PLN, USD or EUR
+        </ng-container>
+      </div>
+
+      <!-- Crypto Symbol -->
+      <label for="cryptoSymbol">Crypto Symbol:</label>
+      <input id="cryptoSymbol" formControlName="cryptoSymbol" type="text" />
+      <div class="error">
+        <ng-container *ngIf="cryptoForm.get('cryptoSymbol')?.touched && cryptoForm.get('cryptoSymbol')?.invalid">
+          Symbol is required (3-10 chars)
+        </ng-container>
+      </div>
+
+      <!-- Staking Interest -->
+      <label for="stakingInterest">Staking Interest (%):</label>
+      <input id="stakingInterest" formControlName="stakingInterest" type="number" step="0.01" />
+
+      <!-- Start Date -->
+      <label for="startDate">Start Date:</label>
+      <input id="startDate" formControlName="startDate" type="date" />
+      <div class="error">
+        <ng-container *ngIf="cryptoForm.get('startDate')?.touched && cryptoForm.get('startDate')?.invalid">
+          Start Date is required
+        </ng-container>
+      </div>
+
+    </div>
+  </form>
+</ng-template>
+
+<app-window [zIndex]="zIndex" [width]="650"
+            [x]="x" [y]="y" [title]="'Crypto Details'" [tabs]="[tabMain]" [statusBar]="bottomButtons"
+            (closed)="close.emit()" (focus)="focus.emit()">
+</app-window>

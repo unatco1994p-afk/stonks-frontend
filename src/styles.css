@@ -138,6 +138,10 @@ body {
   box-shadow: inset 0 1px #fff, inset 0 -1px #254570, inset -1px 0 #224f88, inset 1px 0 #93c0f9;
 }
 
+.ut99-table-separator {
+  box-shadow: inset 0 1px #fff, inset 0 -1px #254570, inset -1px 0 #224f88, inset 1px 0 #93c0f9;
+}
+
 .ut99-table td {
   border: 1px solid #000;
   padding: 2px 4px;
