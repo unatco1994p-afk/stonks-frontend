@@ -5,6 +5,13 @@ import { Bond, InvestmentsService } from "../../../services/investments.service"
 import { WindowRegisterService } from "../../window-register.service";
 import { QuestionWindowComponent } from "../../shared/question.window.component";
 
+export interface TotalBond {
+    currency: string;
+    volume: number;
+    initialValue: number;
+    currentValue: number;
+}
+
 @Component({
     standalone: true,
     selector: 'app-investment-bonds',
@@ -16,8 +23,8 @@ import { QuestionWindowComponent } from "../../shared/question.window.component"
     private service = inject(InvestmentsService);
 
     bonds: Bond[] = [];
-    
-    totalBond: Bond & {initialValue: number} | null = null;
+
+    totalBonds: TotalBond[] = [];
 
     ngOnInit(): void {
         this.refresh();
@@ -27,31 +34,33 @@ import { QuestionWindowComponent } from "../../shared/question.window.component"
         this.service.getBonds().subscribe(bonds => {
             this.bonds = bonds;
 
-            this.totalBond = {
-                id: '',
-                name: 'Total',
-                spot: '',
-                volume: bonds.map(b => b.volume).reduce((a, b) => a + b, 0),
-                price: 0,
-                currency: '',
-                bondTicker: '',
-                interest: 0,
-                startDate: '',
-                dueDate: '',
-                currentValue: bonds.map(b => b.currentValue).reduce((a, b) => a + b, 0),
-                initialValue: bonds.map(b => b.volume*b.price).reduce((a,b) => a+b, 0),
-            }
+            const grouped = bonds.reduce((acc, b) => {
+                if (!acc[b.currency]) {
+                    acc[b.currency] = {
+                        currency: b.currency,
+                        volume: 0,
+                        initialValue: 0,
+                        currentValue: 0
+                    };
+                }
+                acc[b.currency].volume += b.volume;
+                acc[b.currency].initialValue += b.volume * b.price;
+                acc[b.currency].currentValue += b.currentValue;
+                return acc;
+            }, {} as { [currency: string]: TotalBond });
+
+            this.totalBonds = Object.values(grouped);
         });
     }
 
     editBond(bond: Bond) {
-        const ref = this.windowRegister.registerWindow(InvestmentsBondsEditWindowComponent, false, {id: bond.id, bond: bond});
+        const ref = this.windowRegister.registerWindow(InvestmentsBondsEditWindowComponent, false, { id: bond.id, bond: bond });
 
         ref.ref.instance.close.subscribe(() => this.refresh());
     }
 
     deleteBond(bond: Bond) {
-        const ref = this.windowRegister.registerWindow(QuestionWindowComponent, false, {questionText: `Do you really want to remove bond ${bond.name}?`});
+        const ref = this.windowRegister.registerWindow(QuestionWindowComponent, false, { questionText: `Do you really want to remove bond ${bond.name}?` });
 
         ref.ref.instance.close.subscribe(result => {
             if (result === 'yes') {

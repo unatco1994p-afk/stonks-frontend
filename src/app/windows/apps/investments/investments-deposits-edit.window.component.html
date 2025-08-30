@@ -1,0 +1,75 @@
+<ng-template #bottomButtons>
+    <button type="button" style="margin-left: 4px;" (click)="close.emit()">Close</button>
+    <button type="button" (click)="save()">Save Deposit</button>
+</ng-template>
+
+<ng-template appWindowTab="Main" #tabMain="appWindowTab">
+    <form [formGroup]="depositForm" class="form">
+        <div class="form-grid">
+
+            <!-- Name -->
+            <label for="name">Name:</label>
+            <input id="name" formControlName="name" type="text" />
+            <div class="error">
+                <ng-container *ngIf="depositForm.get('name')?.touched && depositForm.get('name')?.invalid">
+                    Name is required
+                </ng-container>
+            </div>
+
+            <!-- Spot -->
+            <label for="spot">Spot:</label>
+            <input id="spot" formControlName="spot" type="text" />
+            <div class="error">
+                <ng-container *ngIf="depositForm.get('spot')?.touched && depositForm.get('spot')?.invalid">
+                    Spot is required
+                </ng-container>
+            </div>
+
+            <!-- Description (pełna szerokość) -->
+            <label for="description">Description:</label>
+            <textarea id="description" formControlName="description"></textarea>
+            <div></div>
+
+            <!-- Value -->
+            <label for="value">Value:</label>
+            <input id="value" formControlName="value" type="number" step="0.01" />
+            <div class="error">
+                <ng-container *ngIf="depositForm.get('value')?.touched && depositForm.get('value')?.invalid">
+                    Value must be positive
+                </ng-container>
+            </div>
+
+            <!-- Currency -->
+            <label for="currency">Currency:</label>
+            <input id="currency" formControlName="currency" type="text" />
+            <div class="error">
+                <ng-container *ngIf="depositForm.get('currency')?.touched && depositForm.get('currency')?.invalid">
+                    Must be PLN, USD or EUR
+                </ng-container>
+            </div>
+
+            <!-- Interest -->
+            <label for="interest">Interest (%):</label>
+            <input id="interest" formControlName="interest" type="number" step="0.01" />
+            <div class="error">
+                <ng-container *ngIf="depositForm.get('interest')?.touched && depositForm.get('interest')?.invalid">
+                    Interest must be positive
+                </ng-container>
+            </div>
+
+            <!-- Start Date -->
+            <label for="startDate">Start Date:</label>
+            <input id="startDate" formControlName="startDate" type="date" />
+            <div class="error">
+                <ng-container *ngIf="depositForm.get('startDate')?.touched && depositForm.get('startDate')?.invalid">
+                    Start Date is invalid
+                </ng-container>
+            </div>
+
+        </div>
+    </form>
+</ng-template>
+
+<app-window [zIndex]="zIndex" [width]="650" [x]="x" [y]="y" [title]="'Deposit Details'" [tabs]="[tabMain]"
+    [statusBar]="bottomButtons" (closed)="close.emit()" (focus)="focus.emit()">
+</app-window>

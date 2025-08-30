@@ -1,0 +1,94 @@
+<ng-template #bottomButtons>
+  <button type="button" style="margin-left: 4px;" (click)="close.emit()">Close</button>
+  <button type="button" (click)="save()">Save Stock</button>
+</ng-template>
+
+<ng-template appWindowTab="Main" #tabMain="appWindowTab">
+  <form [formGroup]="stockForm" class="form">
+    <div class="form-grid">
+
+      <!-- Name -->
+      <label for="name">Name:</label>
+      <input id="name" formControlName="name" type="text" />
+      <div class="error">
+        <ng-container *ngIf="stockForm.get('name')?.touched && stockForm.get('name')?.invalid">
+          Name is required
+        </ng-container>
+      </div>
+
+      <!-- Spot -->
+      <label for="spot">Spot:</label>
+      <input id="spot" formControlName="spot" type="text" />
+      <div class="error">
+        <ng-container *ngIf="stockForm.get('spot')?.touched && stockForm.get('spot')?.invalid">
+          Spot is required
+        </ng-container>
+      </div>
+
+      <!-- Description -->
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <div></div>
+
+      <!-- Volume -->
+      <label for="volume">Volume:</label>
+      <input id="volume" formControlName="volume" type="number" />
+      <div class="error">
+        <ng-container *ngIf="stockForm.get('volume')?.touched && stockForm.get('volume')?.invalid">
+          Volume must be greater than 0
+        </ng-container>
+      </div>
+
+      <!-- Price -->
+      <label for="price">Price:</label>
+      <input id="price" formControlName="price" type="number" step="0.01" />
+      <div class="error">
+        <ng-container *ngIf="stockForm.get('price')?.touched && stockForm.get('price')?.invalid">
+          Price must be non-negative
+        </ng-container>
+      </div>
+
+      <!-- Price Relative to Currency -->
+      <label for="priceRelativeToCurrency">Price Relative Currency:</label>
+      <input id="priceRelativeToCurrency" formControlName="priceRelativeToCurrency" type="text" />
+      <div class="error">
+        <ng-container *ngIf="stockForm.get('priceRelativeToCurrency')?.touched && stockForm.get('priceRelativeToCurrency')?.invalid">
+          Invalid currency
+        </ng-container>
+      </div>
+
+      <!-- Stock Ticker -->
+      <label for="stockTicker">Stock Ticker:</label>
+      <input id="stockTicker" formControlName="stockTicker" type="text" />
+      <div class="error">
+        <ng-container *ngIf="stockForm.get('stockTicker')?.touched && stockForm.get('stockTicker')?.invalid">
+          Stock Ticker is required
+        </ng-container>
+      </div>
+
+      <!-- Dividend -->
+      <label for="dividend">Dividend:</label>
+      <input id="dividend" formControlName="dividend" type="number" step="0.01" />
+      <div class="error">
+        <ng-container *ngIf="stockForm.get('dividend')?.touched && stockForm.get('dividend')?.invalid">
+          Dividend must be non-negative
+        </ng-container>
+      </div>
+
+      <!-- Start Date -->
+      <label for="startDate">Start Date:</label>
+      <input id="startDate" formControlName="startDate" type="date" />
+      <div class="error">
+        <ng-container *ngIf="stockForm.get('startDate')?.touched && stockForm.get('startDate')?.invalid">
+          Start Date is required
+        </ng-container>
+      </div>
+
+    </div>
+  </form>
+</ng-template>
+
+<app-window [zIndex]="zIndex" [width]="650"
+            [x]="x" [y]="y" [title]="'Stock Details'" [tabs]="[tabMain]" [statusBar]="bottomButtons"
+            (closed)="close.emit()" (focus)="focus.emit()">
+</app-window>

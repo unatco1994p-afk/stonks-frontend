@@ -11,7 +11,8 @@ export interface Deposit {
     value: number,
     currency: string,
     interest?: number,
-    startDate?: string
+    startDate?: any,
+    currentValue: number
 }
 
 export interface Crypto {
@@ -24,7 +25,8 @@ export interface Crypto {
     priceRelativeToCurrency?: string,
     cryptoSymbol: string,
     stakingInterest?: number,
-    startDate?: string
+    startDate?: string,
+    currentValue: number
 }
 
 export interface Bond {
@@ -53,7 +55,8 @@ export interface Stock {
     priceRelativeToCurrency: string,
     startDate: string,
     stockTicker: string,
-    dividend?: number
+    dividend?: number,
+    currentValue: number
 }
 
 @Injectable({
@@ -64,6 +67,10 @@ export class InvestmentsService {
     private http = inject(HttpClient);
 
     private investmentsUrl = this.baseUrl + '/investments';
+
+    recalculateCurrentValues(): Observable<any> {
+        return this.http.post(`${this.investmentsUrl}/current-values/`, {});
+    }
 
     getDeposits(): Observable<Deposit[]> {
         return this.http.get<Deposit[]>(`${this.investmentsUrl}/deposits`);

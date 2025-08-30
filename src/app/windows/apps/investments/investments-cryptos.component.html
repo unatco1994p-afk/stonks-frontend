@@ -1,0 +1,63 @@
+<button (click)="refresh()">Refresh</button>
+<button style="margin-left: 4px;" (click)="addCrypto()">Add crypto</button>
+
+<div style="margin-top: 4px;" class="ut99-table-container">
+    <table class="ut99-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Spot</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price at start</th>
+                <th>Currency</th>
+                <th>Crypto Symbol</th>
+                <th>Staking Interest</th>
+                <th>Start Date</th>
+                <th>Initial Value</th>
+                <th>Current Value</th>
+                <th>Profit</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let crypto of cryptos">
+                <td>{{crypto.name}}</td>
+                <td>{{crypto.spot}}</td>
+                <td>{{crypto.description}}</td>
+                <td class="number">{{crypto.quantity}}</td>
+                <td class="number">{{crypto.priceAtStartDate | number:'1.2-2'}}</td>
+                <td>{{crypto.priceRelativeToCurrency}}</td>
+                <td>{{crypto.cryptoSymbol}}</td>
+                <td class="number">{{crypto.stakingInterest}}</td>
+                <td>{{crypto.startDate | date:'yyyy-MM-dd'}}</td>
+                <td class="number">{{crypto.quantity*(crypto.priceAtStartDate ?? 0) | number:'1.2-2'}}</td>
+                <td class="number">{{crypto.currentValue | number:'1.2-2'}}</td>
+                <td class="green-number">{{crypto.currentValue-(crypto.quantity*(crypto.priceAtStartDate ?? 0)) | number:'1.2-2'}}</td>
+                <td>
+                    <a (click)="editCrypto(crypto)">Edit</a>&nbsp;<a (click)="deleteCrypto(crypto)">Delete</a>
+                </td>
+            </tr>
+
+      <tr>
+        <td colspan="13" class="ut99-table-separator"></td>
+      </tr>
+
+            <tr *ngIf="totalCrypto">
+                <td>{{totalCrypto.name}}</td>
+                <td></td>
+                <td></td>
+                <td class="number">{{totalCrypto.quantity}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="number">{{totalCrypto.initialValue | number:'1.2-2'}}</td>
+                <td class="number">{{totalCrypto.currentValue | number:'1.2-2'}}</td>
+                <td class="green-number">{{totalCrypto.currentValue-totalCrypto.initialValue | number:'1.2-2'}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

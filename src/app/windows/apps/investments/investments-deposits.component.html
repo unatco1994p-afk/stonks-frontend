@@ -1,0 +1,52 @@
+<button (click)="refresh()">Refresh</button>
+<button style="margin-left: 4px;" (click)="addDeposit()">Add deposit</button>
+
+<div style="margin-top: 4px;" class="ut99-table-container">
+  <table class="ut99-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Spot</th>
+        <th>Description</th>
+        <th>Value</th>
+        <th>Currency</th>
+        <th>Interest</th>
+        <th>Start Date</th>
+        <th>Current Value</th>
+        <th>Profit</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let deposit of deposits">
+        <td>{{deposit.name}}</td>
+        <td>{{deposit.spot}}</td>
+        <td>{{deposit.description}}</td>
+        <td class="number">{{deposit.value | number:'1.2-2'}}</td>
+        <td>{{deposit.currency}}</td>
+        <td class="number">{{deposit.interest}}</td>
+        <td>{{deposit.startDate | date:'yyyy-MM-dd'}}</td>
+        <td class="number">{{ deposit.currentValue | number:'1.2-2' }}</td>
+        <td class="green-number">{{ deposit.currentValue-deposit.value | number:'1.2-2' }}</td>
+        <td>
+          <a (click)="editDeposit(deposit)">Edit</a>&nbsp;<a (click)="deleteDeposit(deposit)">Delete</a>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="10" class="ut99-table-separator"></td>
+      </tr>
+
+      <tr *ngFor="let totalDeposit of totalDeposits">
+        <td>Total</td>
+        <td></td><td></td>
+        <td class="number">{{totalDeposit.initialValue | number:'1.2-2'}}</td>
+        <td>{{totalDeposit.currency}}</td>
+        <td></td><td></td>
+        <td class="number">{{totalDeposit.currentValue | number:'1.2-2'}}</td>
+        <td class="green-number">{{totalDeposit.currentValue-totalDeposit.initialValue | number:'1.2-2'}}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
