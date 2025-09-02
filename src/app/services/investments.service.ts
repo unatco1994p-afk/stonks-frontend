@@ -38,8 +38,7 @@ export interface Bond {
     price: number,
     currency: string,
     bondTicker: string,
-    interest: number,
-    interestsList?: string,
+    interestsList: string,
     startDate: any,
     dueDate: any,
     currentValue: number
