@@ -12,7 +12,7 @@
                 <th>Price at start</th>
                 <th>Currency</th>
                 <th>Crypto Symbol</th>
-                <th>Staking Interest</th>
+                <th>Staking Interest [%]</th>
                 <th>Start Date</th>
                 <th>Initial Value</th>
                 <th>Current Value</th>
@@ -33,7 +33,9 @@
                 <td>{{crypto.startDate | date:'yyyy-MM-dd'}}</td>
                 <td class="number">{{crypto.quantity*(crypto.priceAtStartDate ?? 0) | number:'1.2-2'}}</td>
                 <td class="number">{{crypto.currentValue | number:'1.2-2'}}</td>
-                <td class="green-number">{{crypto.currentValue-(crypto.quantity*(crypto.priceAtStartDate ?? 0)) | number:'1.2-2'}}</td>
+                <td [class.green-number]="crypto.profit >= 0" [class.red-number]="crypto.profit < 0">
+                    {{ crypto.profit | number:'1.2-2' }}
+                </td>
                 <td>
                     <a (click)="editCrypto(crypto)">Edit</a>&nbsp;<a (click)="deleteCrypto(crypto)">Delete</a>
                 </td>
@@ -55,7 +57,9 @@
                 <td></td>
                 <td class="number">{{totalCrypto.initialValue | number:'1.2-2'}}</td>
                 <td class="number">{{totalCrypto.currentValue | number:'1.2-2'}}</td>
-                <td class="green-number">{{totalCrypto.currentValue-totalCrypto.initialValue | number:'1.2-2'}}</td>
+                <td [class.green-number]="totalCrypto.currentValue-totalCrypto.initialValue >= 0" [class.red-number]="totalCrypto.currentValue-totalCrypto.initialValue < 0">
+                    {{totalCrypto.currentValue-totalCrypto.initialValue | number:'1.2-2'}}
+                </td>
                 <td></td>
             </tr>
         </tbody>
