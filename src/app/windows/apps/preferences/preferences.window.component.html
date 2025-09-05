@@ -22,7 +22,7 @@
             [value]="defaultCurrency"
             pattern="USD|EUR|PLN"
             title="Allowed values: USD, EUR, PLN"
-            (input)="defaultCurrency = $event.target.value"/>
+            (input)="defaultCurrency = $any($event.target).value"/>
     </div>
 </ng-template>
 

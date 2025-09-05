@@ -16,7 +16,7 @@ export class PreferencesWindowComponent extends AbstractWindow implements OnInit
     
     showDesktop = false;
     playMenuMusic = false;
-    defaultCurrency: 'PLN'|'EUR'|'USD' = 'PLN';
+    defaultCurrency: 'PLN'|'EUR'|'USD' | string = 'PLN';
 
     override windowName = 'Preferences';
 
@@ -32,7 +32,7 @@ export class PreferencesWindowComponent extends AbstractWindow implements OnInit
         this.preferences.updatePreferences({
             showDesktop: this.showDesktop, 
             playMenuMusic: this.playMenuMusic, 
-            defaultCurrency: this.defaultCurrency
+            defaultCurrency: this.defaultCurrency as any
         }).subscribe();
         this.close.emit();
     }
