@@ -39,7 +39,6 @@ export class InvestmentsBondsEditWindowComponent extends AbstractWindow implemen
             price: [this.bond?.price ?? 0, [Validators.required, Validators.min(0)]],
             currency: [this.bond?.currency ?? 'PLN', Validators.pattern(/\b(PLN|EUR|USD)\b(?!\s)/)],
             bondTicker: [this.bond?.bondTicker ?? '', Validators.required],
-            interest: [this.bond?.interest ?? 0, [Validators.required, Validators.min(0)]],
             interestsList: [this.bond?.interestsList ?? ''],
             startDate: [
                 this.bond?.startDate ? new Date(this.bond.startDate).toISOString().substring(0, 10) : new Date().toISOString().substring(0, 10),

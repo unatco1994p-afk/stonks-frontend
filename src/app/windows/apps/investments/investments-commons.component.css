@@ -32,3 +32,9 @@ input, textarea {
   font-weight: 600;
   color: #208b00;
 }
+
+.red-number {
+  text-align: right;
+  font-weight: 600;
+  color: #f5140c;
+}
