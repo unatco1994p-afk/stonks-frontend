@@ -1,9 +1,29 @@
 <ng-template appWindowTab="Main" #tabMain="appWindowTab">
-    <label>Use desktop</label>
-    <input
-        type="checkbox"
-        [checked]="useDesktop"
-        (change)="useDesktop = !useDesktop"/>
+    <div>
+        <label>Show desktop</label>
+        <input
+            type="checkbox"
+            [checked]="showDesktop"
+            (change)="showDesktop = !showDesktop"/>
+    </div>
+
+    <div>
+        <label>Play menu music</label>
+        <input
+            type="checkbox"
+            [checked]="playMenuMusic"
+            (change)="playMenuMusic = !playMenuMusic"/>
+    </div>
+
+    <div>
+        <label>Default currency</label>
+        <input
+            type="text"
+            [value]="defaultCurrency"
+            pattern="USD|EUR|PLN"
+            title="Allowed values: USD, EUR, PLN"
+            (input)="defaultCurrency = $any($event.target).value"/>
+    </div>
 </ng-template>
 
 <ng-template #bottomButtons>

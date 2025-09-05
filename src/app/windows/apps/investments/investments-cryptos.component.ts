@@ -16,7 +16,7 @@ export class InvestmentsCryptosComponent implements OnInit {
     private windowRegister = inject(WindowRegisterService);
     private service = inject(InvestmentsService);
 
-    cryptos: Crypto[] = [];
+    cryptos: (Crypto & {profit: number})[] = [];
 
     totalCrypto: Crypto & {initialValue: number, currentValue: number} | null = null;
 
@@ -26,7 +26,10 @@ export class InvestmentsCryptosComponent implements OnInit {
 
     refresh() {
         this.service.getCryptos().subscribe(cryptos => {
-            this.cryptos = cryptos;
+            this.cryptos = cryptos.map(crypto => ({
+                ...crypto,
+                profit: crypto.currentValue-(crypto.quantity*(crypto.priceAtStartDate ?? 0))
+            }));
 
             const totalVolume = cryptos.map(c => c.quantity).reduce((a,b) => a+b, 0);
             const totalInitial = cryptos.map(c => c.quantity * (c.priceAtStartDate ?? 0)).reduce((a,b) => a+b, 0);
